@@ -5,6 +5,7 @@
     <ClCompile Include="Framework.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Task.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
@@ -12,6 +13,7 @@
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="smart_ptr.h" />
     <ClInclude Include="Task.h" />
   </ItemGroup>

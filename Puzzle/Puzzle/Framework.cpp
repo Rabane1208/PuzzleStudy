@@ -29,8 +29,8 @@ Framework::Framework( ) {
 	_screen_width = sx;
 	_screen_height = sy;
 #	else
-	int wx = 320; //sx * 3 / 4;
-	int wy = 568; //sy * 3 / 4;	
+	int wx = 360; //sx * 3 / 4;
+	int wy = 680; //sy * 3 / 4;	
 	SetGraphMode( wx, wy, 32 );
 	SetWindowInitPosition( ( sx - wx ) / 2, ( sy - wy ) / 2 );
 	ChangeWindowMode( TRUE );

@@ -4,6 +4,7 @@
 #include <string>
 
 PTR( Drawer );
+PTR( Map );
 
 class Drawer : public Task {
 public:
@@ -15,5 +16,8 @@ public:
 private:
 	void update( );
 	void drawMap( );
+	int getMapResource( int type );
+private:
+	MapPtr _map;
 };
 
