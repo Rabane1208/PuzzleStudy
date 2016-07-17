@@ -20,23 +20,23 @@ void Drawer::update( ) {
 
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 		if ( _map->isPush( i ) ) {
-			int map_type = _map->getMap( i );
-			int x = ( i % Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) / 2;
-			int y = ( i / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 5 / 2;
-			int r = _map->getChipSize( ) * 6 / 10;
-			DrawCircle( x, y, r, getMapResource( map_type ), TRUE );
+			drawChip( i, _map->getChipSize( ) * 6 / 10 );
 		}
 	}
 }
 
 void Drawer::drawMap( ) {
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-		int map_type = _map->getMap( i );
-		int x = ( i % Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) / 2;
-		int y = ( i / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 5 / 2;
-		int r = _map->getChipSize( ) / 2;
-		DrawCircle( x, y, r, getMapResource( map_type ), TRUE );
+		drawChip( i, _map->getChipSize( ) / 2 );
 	}
+}
+
+void Drawer::drawChip( int idx, int size ) {
+		int map_type = _map->getMap( idx );
+		int x = ( idx % Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) / 2;
+		int y = ( idx / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 5 / 2;
+		int r = size;
+		DrawCircle( x, y, r, getMapResource( map_type ), TRUE );
 }
 
 int Drawer::getMapResource( int type ) {
