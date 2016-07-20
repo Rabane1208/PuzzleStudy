@@ -27,10 +27,21 @@ void Chip::update( ) {
 	if ( _mouse->getStatus( ) != 1 ) {
 		return;
 	}
-	int mouse_idx = _map->posToIdx( _mouse->getPosX( ), _mouse->getPosY( ) );
+
+	int before_idx = mouse_idx;
+	mouse_idx = _map->posToIdx( _mouse->getPosX( ), _mouse->getPosY( ) );
+
+	//違うChipをClickしたら、初期化
+	if ( before_idx != mouse_idx ) {
+		chip[ before_idx ].status = STATUS::STATUS_NONE;
+	}
+
+	//LockされてないChipをClickしたら、Lockする
 	if ( chip[ mouse_idx ].status != STATUS::STATUS_LOCKED ) {
 		chip[ mouse_idx ].status = STATUS::STATUS_LOCKED;
-	} else {
+		
+		before_idx = mouse_idx;
+	} else { //LockされたChipをClickしたら、色を変えてLockを解除
 		chip[ mouse_idx ].type = ( TYPE )( ( chip[ mouse_idx ].type + 1 ) % TYPE::TYPE_MAX );
 		chip[ mouse_idx ].status = STATUS::STATUS_NONE;
 		if ( chip[ mouse_idx ].type == TYPE::TYPE_NONE ) {

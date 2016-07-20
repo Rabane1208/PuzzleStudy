@@ -47,6 +47,7 @@ private:
 	TYPE _chip;
 	std::array< CHIP, Map::MAP_MAX >chip;
 	MousePtr _mouse;
+	int mouse_idx;
 	MapPtr _map;
 };
 
