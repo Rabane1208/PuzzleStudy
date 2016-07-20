@@ -22,7 +22,6 @@ enum TYPE {
 		TYPE_D,
 		TYPE_E,
 		TYPE_F,
-		TYPE_G,
 		TYPE_MAX,
 };
 
@@ -47,8 +46,6 @@ private:
 private:
 	TYPE _chip;
 	std::array< CHIP, Map::MAP_MAX >chip;
-	int _lock_num;
-	bool _lock_trigger;
 	MousePtr _mouse;
 	MapPtr _map;
 };

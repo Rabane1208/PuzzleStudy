@@ -42,9 +42,6 @@ void Drawer::drawChip( int idx, int size ) {
 
 int Drawer::getChipResource( TYPE type ) {
 	switch ( type ) {
-	case TYPE::TYPE_NONE:
-		return 0x000000;
-		break;
 	case TYPE::TYPE_A:
 		return 0xff0000;
 		break;

@@ -13,8 +13,6 @@ ChipPtr Chip::getTask( ) {
 Chip::Chip( ) {
 	_mouse = Mouse::getTask( );
 	_map = Map::getTask( );
-	_lock_trigger = false;
-	_lock_num = -1;
 
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 		chip[ i ].type = ( TYPE )( GetRand( 5 ) + 1 );
@@ -26,27 +24,18 @@ Chip::~Chip( ) {
 }
 
 void Chip::update( ) {
+	if ( _mouse->getStatus( ) != 1 ) {
+		return;
+	}
 	int mouse_idx = _map->posToIdx( _mouse->getPosX( ), _mouse->getPosY( ) );
-	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-		if ( _mouse->getStatus( ) != 2 ) {
-			return;
+	if ( chip[ mouse_idx ].status != STATUS::STATUS_LOCKED ) {
+		chip[ mouse_idx ].status = STATUS::STATUS_LOCKED;
+	} else {
+		chip[ mouse_idx ].type = ( TYPE )( ( chip[ mouse_idx ].type + 1 ) % TYPE::TYPE_MAX );
+		chip[ mouse_idx ].status = STATUS::STATUS_NONE;
+		if ( chip[ mouse_idx ].type == TYPE::TYPE_NONE ) {
+			chip[ mouse_idx ].type = TYPE::TYPE_A;
 		}
-
-		//Click‚µ‚½Chip‚¶‚á‚È‚¢Chip‚ðClick‚·‚é‚ÆLock‚ðCancle
-		if ( ( mouse_idx != _lock_num ) && _lock_trigger ) {
-			for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-				chip[ i ].status = STATUS::STATUS_NONE;
-			}
-			_lock_num = -1;
-			_lock_trigger = false;
-		}
-
-		//Click‚µ‚½Chip‚ðLock
-		if ( mouse_idx == i && chip[ i ].status != STATUS::STATUS_LOCKED ) {
-			chip[ i ].status = STATUS::STATUS_LOCKED;
-			_lock_num = i;
-			_lock_trigger = true;
-		} 
 	}
 }
 
