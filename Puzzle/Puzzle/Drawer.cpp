@@ -19,17 +19,16 @@ Drawer::~Drawer( ) {
 
 void Drawer::update( ) {
 	drawMap( );
-
-	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-		if ( _chip->getChip( i ).status != STATUS::STATUS_NONE ) {
-			drawChip( i, _map->getChipSize( ) * 6 / 10 );
-		}
-	}
 }
 
 void Drawer::drawMap( ) {
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 		drawChip( i, _map->getChipSize( ) / 2 );
+	}
+	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
+		if ( _chip->getChip( i ).status != STATUS::STATUS_NONE ) {
+			drawChip( i, _map->getChipSize( ) * 6 / 10 );
+		}
 	}
 }
 

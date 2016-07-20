@@ -48,8 +48,6 @@ void Chip::update( ) {
 			_lock_trigger = true;
 		} 
 	}
-
-	DrawFormatString( 0, 0, 0xff0000, "Map : %d", mouse_idx );
 }
 
 void Chip::setType( int idx, TYPE type ) {
