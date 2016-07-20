@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Chip.cpp" />
     <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="Framework.cpp" />
     <ClCompile Include="main.cpp" />
@@ -93,6 +94,7 @@
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Chip.h" />
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="Map.h" />

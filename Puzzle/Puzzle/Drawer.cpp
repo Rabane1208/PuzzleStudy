@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "Framework.h"
 #include "Map.h"
+#include "Chip.h"
 
 DrawerPtr Drawer::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
@@ -9,6 +10,7 @@ DrawerPtr Drawer::getTask( ) {
 }
 
 Drawer::Drawer( ) {
+	_chip = Chip::getTask( );
 	_map = Map::getTask( );
 }
 
@@ -19,7 +21,7 @@ void Drawer::update( ) {
 	drawMap( );
 
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-		if ( _map->isPush( i ) ) {
+		if ( _chip->getChip( i ).status != STATUS::STATUS_NONE ) {
 			drawChip( i, _map->getChipSize( ) * 6 / 10 );
 		}
 	}
@@ -32,31 +34,34 @@ void Drawer::drawMap( ) {
 }
 
 void Drawer::drawChip( int idx, int size ) {
-		int map_type = _map->getMap( idx );
-		int x = ( idx % Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) / 2;
-		int y = ( idx / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 5 / 2;
-		int r = size;
-		DrawCircle( x, y, r, getMapResource( map_type ), TRUE );
+	TYPE type = _chip->getChip( idx ).type;
+	int x = ( idx % Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) / 2;
+	int y = ( idx / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 5 / 2;
+	int r = size;
+	DrawCircle( x, y, r, getChipResource( type ), TRUE );
 }
 
-int Drawer::getMapResource( int type ) {
+int Drawer::getChipResource( TYPE type ) {
 	switch ( type ) {
-	case 0:
+	case TYPE::TYPE_NONE:
+		return 0x000000;
+		break;
+	case TYPE::TYPE_A:
 		return 0xff0000;
 		break;
-	case 1:
+	case TYPE::TYPE_B:
 		return 0x00ff00;
 		break;
-	case 2:
+	case TYPE::TYPE_C:
 		return 0x0000ff;
 		break;
-	case 3:
+	case TYPE::TYPE_D:
 		return 0xffff00;
 		break;
-	case 4:
+	case TYPE::TYPE_E:
 		return 0x00ffff;
 		break;
-	case 5:
+	case TYPE::TYPE_F:
 		return 0xff00ff;
 		break;
 	default:
