@@ -27,22 +27,20 @@ void Chip::update( ) {
 		return;
 	}
 
+	//違うChipをClickしたら、初期化
 	int before_idx = mouse_idx;
 	mouse_idx = _map->posToIdx( _mouse->getPosX( ), _mouse->getPosY( ) );
-
-	//違うChipをClickしたら、初期化
 	if ( before_idx != mouse_idx && chip[ mouse_idx ].status != STATUS::STATUS_LOCKED ) {
 		for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 			chip[ i ].status = STATUS::STATUS_NONE;
 		}
 	}
 
-	std::vector< int > group = searchGroup( mouse_idx );
 	//LockされてないChipをClickしたら、Lockする
+	//std::vector< int > group = scanCross( mouse_idx );
 	if ( chip[ mouse_idx ].status != STATUS::STATUS_LOCKED ) {
-		for ( unsigned int i = 0; i < group.size( ); i++ ) {
-			chip[ group[ i ] ].status = STATUS::STATUS_LOCKED;
-		}
+		chip[ mouse_idx ].status = STATUS::STATUS_LOCKED;
+		groupLock( mouse_idx );
 	} else { //LockされたChipをClickしたら、色を変えてLockを解除
 		for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 			if ( chip[ i ].status != STATUS::STATUS_LOCKED ) {
@@ -55,40 +53,50 @@ void Chip::update( ) {
 			}
 		}
 	}
+	//group.clear( );
 }
 
-std::vector< int > Chip::searchGroup( int idx ) {
-	std::vector< int > group;
-
-	group.push_back( idx );
-
+bool Chip::isLockInCross( int idx ) {
 	//右を検査
 	if ( idx % Map::MAP_X_NUM != ( Map::MAP_X_NUM - 1 ) ) {
-		if ( chip[ idx ].type == chip[ idx + 1 ].type ) {
-			group.push_back( idx + 1 );
+		if ( chip[ idx + 1 ].status == STATUS::STATUS_LOCKED ) {
+			return true;
 		}
 	}
 	//左を検査
 	if ( idx % Map::MAP_X_NUM != 0 ) {
-		if ( chip[ idx ].type == chip[ idx - 1 ].type ) {
-			group.push_back( idx - 1 );
+		if ( chip[ idx - 1 ].status == STATUS::STATUS_LOCKED ) {
+			return true;
 		}
 	}
 	//上を検査
 	if ( idx >= Map::MAP_X_NUM ) {
-		if ( chip[ idx ].type == chip[ idx - Map::MAP_X_NUM ].type ) {
-			group.push_back( idx - Map::MAP_X_NUM );
+		if ( chip[ idx - Map::MAP_X_NUM ].status == STATUS::STATUS_LOCKED ) {
+			return true;
 		}
 	}
 	//下を検査
-	if ( idx <= Map::MAP_MAX - Map::MAP_X_NUM ) {
-		if ( chip[ idx ].type == chip[ idx + Map::MAP_X_NUM ].type ) {
-			group.push_back( idx + Map::MAP_X_NUM );
+	if ( idx < Map::MAP_MAX - Map::MAP_X_NUM ) {
+		if ( chip[ idx + Map::MAP_X_NUM ].status == STATUS::STATUS_LOCKED ) {
+			return true;
 		}
 	}
-
-	return group;
+	return false;
 }
+
+void Chip::groupLock( int idx ) {
+	for ( int j = 0; j < Map::MAP_X_NUM + Map::MAP_Y_NUM; j++ ) { //無駄にメモリ使っている。直す必要がある。
+		for ( int i = 0; i < Map::MAP_MAX; i++ ) {
+			if ( chip[ i ].type != chip[ idx ].type ) {
+				continue;
+			}
+			if ( isLockInCross( i ) ) {
+				chip[ i ].status = STATUS::STATUS_LOCKED;
+			}
+		}
+	}
+}
+
 
 void Chip::setType( int idx, TYPE type ) {
 	chip[ idx ].type = type;
