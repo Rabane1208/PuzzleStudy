@@ -3,6 +3,7 @@
 #include "smart_ptr.h"
 #include <string>
 #include <array>
+#include <vector>
 #include "Map.h"
 
 PTR( Chip );
@@ -41,10 +42,9 @@ public:
 	void setType( int idx, TYPE type );
 	void setStatus( int idx, STATUS status );
 	CHIP getChip( int idx );
+	std::vector< int > searchGroup( int idx );
 private:
-	bool isLockInCross( int idx );
 	void update( );
-	void groupLock( int idx );
 private:
 	std::array< CHIP, Map::MAP_MAX >chip;
 	MousePtr _mouse;
