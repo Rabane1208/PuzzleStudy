@@ -37,7 +37,6 @@ void Chip::update( ) {
 	}
 
 	//Lock‚³‚ê‚Ä‚È‚¢Chip‚ğClick‚µ‚½‚çALock‚·‚é
-	//std::vector< int > group = scanCross( mouse_idx );
 	if ( chip[ mouse_idx ].status != STATUS::STATUS_LOCKED ) {
 		chip[ mouse_idx ].status = STATUS::STATUS_LOCKED;
 		groupLock( mouse_idx );
@@ -53,7 +52,6 @@ void Chip::update( ) {
 			}
 		}
 	}
-	//group.clear( );
 }
 
 bool Chip::isLockInCross( int idx ) {
