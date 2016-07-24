@@ -34,7 +34,7 @@ void Drawer::drawMap( ) {
 
 void Drawer::drawChip( int idx, int size ) {
 	TYPE type = _chip->getChip( idx ).type;
-	int x = ( idx % Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) / 2;
+	int x = ( idx % Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) / 2 + 1;
 	int y = ( idx / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 5 / 2;
 	int r = size;
 	DrawCircle( x, y, r, getChipResource( type ), TRUE );
