@@ -10,6 +10,7 @@ DrawerPtr Drawer::getTask( ) {
 }
 
 Drawer::Drawer( ) {
+	_num_img = LoadGraph( "Resources/Number.png" );
 	_chip = Chip::getTask( );
 	_map = Map::getTask( );
 }
@@ -19,6 +20,7 @@ Drawer::~Drawer( ) {
 
 void Drawer::update( ) {
 	drawMap( );
+	drawNum( 0, 0, 1 );
 }
 
 void Drawer::drawMap( ) {
@@ -64,4 +66,8 @@ int Drawer::getChipResource( TYPE type ) {
 		return 0xffffff;
 		break;
 	}
+}
+
+void Drawer::drawNum( int x, int y, int num ) {
+	DrawRectGraph( x, y, num * 40, 0, 40, 40, _num_img, TRUE, FALSE );
 }
