@@ -9,6 +9,7 @@
     <ClCompile Include="Task.cpp" />
     <ClCompile Include="winmain.cpp" />
     <ClCompile Include="Chip.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawer.h" />
@@ -18,5 +19,6 @@
     <ClInclude Include="smart_ptr.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="Chip.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
 </Project>

@@ -22,6 +22,7 @@ private:
 	void update( );
 	void drawMap( );
 	void drawChip( int idx, int size );
+	void drawUI( );
 	void drawNum( int x, int y, int num );
 	int getChipResource( TYPE type );
 private:

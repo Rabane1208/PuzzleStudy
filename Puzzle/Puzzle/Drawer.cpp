@@ -42,7 +42,7 @@ void Drawer::drawChip( int idx, int size ) {
 	DrawCircle( x, y, r, getChipResource( type ), TRUE );
 }
 
-int Drawer::getChipResource( TYPE type ) {
+int Drawer::getChipResource( TYPE type ) {//å„ÅASTL::mapÇ≈ïœÇ¶ÇÈÅB
 	switch ( type ) {
 	case TYPE::TYPE_A:
 		return 0xff0000;
@@ -68,6 +68,10 @@ int Drawer::getChipResource( TYPE type ) {
 	}
 }
 
+void Drawer::drawUI( ) {
+
+}
 void Drawer::drawNum( int x, int y, int num ) {
-	DrawRectGraph( x, y, num * 40, 0, 40, 40, _num_img, TRUE, FALSE );
+	const int NUMBER_SIZE = 40;
+	DrawRectGraph( x, y, num * NUMBER_SIZE, 0, NUMBER_SIZE, NUMBER_SIZE, _num_img, TRUE, FALSE );
 }

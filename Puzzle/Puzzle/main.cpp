@@ -1,4 +1,5 @@
 #include "Framework.h"
+#include "UI.h"
 #include "Drawer.h"
 #include "Mouse.h"
 #include "Chip.h"
@@ -6,6 +7,9 @@
 
 void main( ) {
 	FrameworkPtr fw = Framework::getInstance( );
+
+	UIPtr ui = UIPtr( new UI );
+	fw->addTask( UI::getTag( ), ui );
 	
 	TaskPtr mouse = MousePtr( new Mouse );
 	fw->addTask( Mouse::getTag( ), mouse );
