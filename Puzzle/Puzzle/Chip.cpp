@@ -12,6 +12,7 @@ ChipPtr Chip::getTask( ) {
 Chip::Chip( ) {
 	_mouse = Mouse::getTask( );
 	_map = Map::getTask( );
+	_change_num = 0;
 
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 		chip[ i ].type = ( TYPE )( GetRand( 5 ) + 1 );
@@ -51,6 +52,7 @@ void Chip::update( ) {
 				chip[ i ].type = TYPE::TYPE_A;
 			}
 		}
+		_change_num++;
 	}
 }
 
@@ -106,4 +108,8 @@ void Chip::setStatus( int idx, STATUS status ) {
 
 CHIP Chip::getChip( int idx ) {
 	return chip[ idx ];
+}
+
+int Chip::getChangeNum( ) {
+	return _change_num;
 }

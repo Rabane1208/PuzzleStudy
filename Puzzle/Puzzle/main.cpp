@@ -8,8 +8,6 @@
 void main( ) {
 	FrameworkPtr fw = Framework::getInstance( );
 
-	UIPtr ui = UIPtr( new UI );
-	fw->addTask( UI::getTag( ), ui );
 	
 	TaskPtr mouse = MousePtr( new Mouse );
 	fw->addTask( Mouse::getTag( ), mouse );
@@ -19,6 +17,9 @@ void main( ) {
 
 	TaskPtr chip = ChipPtr( new Chip );
 	fw->addTask( Chip::getTag( ), chip );
+	
+	UIPtr ui = UIPtr( new UI );
+	fw->addTask( UI::getTag( ), ui );
 
 	TaskPtr drawer = DrawerPtr( new Drawer );
 	fw->addTask( Drawer::getTag( ), drawer );

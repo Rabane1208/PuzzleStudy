@@ -41,6 +41,7 @@ public:
 	void setType( int idx, TYPE type );
 	void setStatus( int idx, STATUS status );
 	CHIP getChip( int idx );
+	int getChangeNum( );
 private:
 	bool isLockInCross( int idx );
 	void update( );
@@ -50,5 +51,6 @@ private:
 	MousePtr _mouse;
 	int mouse_idx;
 	MapPtr _map;
+	int _change_num;
 };
 

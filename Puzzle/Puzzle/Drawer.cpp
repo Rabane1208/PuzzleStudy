@@ -3,6 +3,7 @@
 #include "Framework.h"
 #include "Map.h"
 #include "Chip.h"
+#include "UI.h"
 
 DrawerPtr Drawer::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
@@ -20,7 +21,7 @@ Drawer::~Drawer( ) {
 
 void Drawer::update( ) {
 	drawMap( );
-	drawNum( 0, 0, 1 );
+	drawUI( );
 }
 
 void Drawer::drawMap( ) {
@@ -69,9 +70,11 @@ int Drawer::getChipResource( TYPE type ) {//後、STL::mapで変える。
 }
 
 void Drawer::drawUI( ) {
-
+	UIPtr ui = UI::getTask( );
+	drawNum( 0, 0, ui->canChangeNum( ) );
 }
-void Drawer::drawNum( int x, int y, int num ) {
+
+void Drawer::drawNum( int x, int y, int num ) { //後、10以上でも対応するように。<math.h>
 	const int NUMBER_SIZE = 40;
 	DrawRectGraph( x, y, num * NUMBER_SIZE, 0, NUMBER_SIZE, NUMBER_SIZE, _num_img, TRUE, FALSE );
 }

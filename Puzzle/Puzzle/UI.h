@@ -4,6 +4,7 @@
 #include <string>
 
 PTR( UI );
+PTR( Chip );
 
 class UI : public Task {
 public:
@@ -12,7 +13,11 @@ public:
 public:
 	UI( );
 	virtual ~UI( );
+public:
+	int canChangeNum( );
 private:
 	void update( );
+private:
+	ChipPtr _chip;
 };
 
