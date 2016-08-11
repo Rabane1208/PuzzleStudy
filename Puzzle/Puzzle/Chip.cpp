@@ -31,6 +31,9 @@ void Chip::update( ) {
 	//ˆá‚¤Chip‚ðClick‚µ‚½‚çA‰Šú‰»
 	int before_idx = mouse_idx;
 	mouse_idx = _map->posToIdx( _mouse->getPosX( ), _mouse->getPosY( ) );
+	if ( mouse_idx == -1 ) { //Chip‚¶‚á‚È‚©‚Á‚½‚çreturn
+		return;
+	}
 	if ( before_idx != mouse_idx && chip[ mouse_idx ].status != STATUS::STATUS_LOCKED ) {
 		for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 			chip[ i ].status = STATUS::STATUS_NONE;

@@ -27,11 +27,11 @@ void Drawer::update( ) {
 
 void Drawer::drawMap( ) {
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-		drawChip( i, _map->getChipSize( ) / 2 );
+		drawChip( i, -3 );
 	}
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 		if ( _chip->getChip( i ).status != STATUS::STATUS_NONE ) {
-			drawChip( i, _map->getChipSize( ) * 6 / 10 );
+			drawChip( i, 3 );
 		}
 	}
 }
@@ -39,27 +39,28 @@ void Drawer::drawMap( ) {
 void Drawer::drawChip( int idx, int size ) {
 	TYPE type = _chip->getChip( idx ).type;
 	int x = ( idx % Map::MAP_X_NUM ) * _map->getChipSize( );
-	int y = ( idx / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 3 / 2;
+	int y = ( idx / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 2;//後マジックnumber消す。
 	int r = size;
-	DrawRectGraph( x, y, getChipResource( type ), 0, 60, 60, _chip_img, TRUE, FALSE );
+	DrawRectExtendGraph( x - size, y - size, x + _map->getChipSize( ) + size, y + _map->getChipSize( ) + size, getChipResource( type ), 0, 60, 60, _chip_img, TRUE );
 }
 
 int Drawer::getChipResource( TYPE type ) {//後、STL::mapで変える。
+	FrameworkPtr fw = Framework::getInstance( );
 	switch ( type ) {
 	case TYPE::TYPE_A:
-		return 1 * _map->getChipSize( );
+		return 1 * fw->getWindowWidth( ) / TYPE::TYPE_MAX;
 		break;
 	case TYPE::TYPE_B:
-		return 2 * _map->getChipSize( );
+		return 2 * fw->getWindowWidth( ) / TYPE::TYPE_MAX;
 		break;
 	case TYPE::TYPE_C:
-		return 3 * _map->getChipSize( );
+		return 3 * fw->getWindowWidth( ) / TYPE::TYPE_MAX;
 		break;
 	case TYPE::TYPE_D:
-		return 4 * _map->getChipSize( );
+		return 4 * fw->getWindowWidth( ) / TYPE::TYPE_MAX;
 		break;
 	case TYPE::TYPE_E:
-		return 5 * _map->getChipSize( );
+		return 5 * fw->getWindowWidth( ) / TYPE::TYPE_MAX;
 		break;
 	default:
 		return 0xffffff;

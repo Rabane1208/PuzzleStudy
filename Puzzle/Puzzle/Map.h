@@ -9,8 +9,8 @@ PTR( Mouse );
 
 class Map : public Task {
 public:
-	static const int MAP_X_NUM = 6;
-	static const int MAP_Y_NUM = 8;
+	static const int MAP_X_NUM = 7;
+	static const int MAP_Y_NUM = 9;
 	static const int MAP_MAX = MAP_X_NUM * MAP_Y_NUM;
 public:
 	static std::string getTag( ) { return "MAP"; }
