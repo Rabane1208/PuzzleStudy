@@ -10,6 +10,7 @@
     <ClCompile Include="winmain.cpp" />
     <ClCompile Include="Chip.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Result.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawer.h" />
@@ -20,5 +21,6 @@
     <ClInclude Include="Task.h" />
     <ClInclude Include="Chip.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="Result.h" />
   </ItemGroup>
 </Project>

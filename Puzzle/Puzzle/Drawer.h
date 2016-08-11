@@ -23,10 +23,14 @@ private:
 	void drawMap( );
 	void drawChip( int idx, int size );
 	void drawUI( );
+	void drawBackground( );
 	void drawNum( int x, int y, int num );
 	int getChipResource( TYPE type );
 private:
 	int _num_img;
 	int _chip_img;
+	int _background_img;
+	int _seeweed_img;
+	int _ani_timer;
 };
 

@@ -5,6 +5,15 @@
 #include "Chip.h"
 #include "UI.h"
 
+const int BG_IMG_WIDTH = 484;
+const int BG_IMG_HEIGHT = 785;
+const int SEEWEED_WIDTH = 30;
+const int SEEWEED_HEIGHT = 120;
+const int CHIP_IMG_SIZE = 60;
+const int NUMBER_SIZE = 40;
+
+const int ANI_FPS = 30;
+
 DrawerPtr Drawer::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
 	return std::dynamic_pointer_cast< Drawer >( fw->getTask( Drawer::getTag( ) ) );
@@ -13,14 +22,19 @@ DrawerPtr Drawer::getTask( ) {
 Drawer::Drawer( ) {
 	_num_img = LoadGraph( "Resources/Number.png" );
 	_chip_img = LoadGraph( "Resources/Chip.png" );
+	_background_img = LoadGraph( "Resources/Background.png" );
+	_seeweed_img = LoadGraph( "Resources/seeweed.png" );
 	_chip = Chip::getTask( );
 	_map = Map::getTask( );
+
+	_ani_timer = 0;
 }
 
 Drawer::~Drawer( ) {
 }
 
 void Drawer::update( ) {
+	drawBackground( );
 	drawMap( );
 	drawUI( );
 }
@@ -41,7 +55,7 @@ void Drawer::drawChip( int idx, int size ) {
 	int x = ( idx % Map::MAP_X_NUM ) * _map->getChipSize( );
 	int y = ( idx / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 2;//後マジックnumber消す。
 	int r = size;
-	DrawRectExtendGraph( x - size, y - size, x + _map->getChipSize( ) + size, y + _map->getChipSize( ) + size, getChipResource( type ), 0, 60, 60, _chip_img, TRUE );
+	DrawRectExtendGraph( x - size, y - size, x + _map->getChipSize( ) + size, y + _map->getChipSize( ) + size, getChipResource( type ), 0, CHIP_IMG_SIZE, CHIP_IMG_SIZE, _chip_img, TRUE );
 }
 
 int Drawer::getChipResource( TYPE type ) {//後、STL::mapで変える。
@@ -70,10 +84,19 @@ int Drawer::getChipResource( TYPE type ) {//後、STL::mapで変える。
 
 void Drawer::drawUI( ) {
 	UIPtr ui = UI::getTask( );
-	drawNum( 0, 0, ui->canChangeNum( ) );
+	drawNum( 18, 25, ui->canChangeNum( ) );
 }
 
 void Drawer::drawNum( int x, int y, int num ) { //後、10以上でも対応するように。<math.h>
-	const int NUMBER_SIZE = 40;
 	DrawRectGraph( x, y, num * NUMBER_SIZE, 0, NUMBER_SIZE, NUMBER_SIZE, _num_img, TRUE, FALSE );
+}
+
+void Drawer::drawBackground( ) {
+	_ani_timer++;
+	int ani = ( _ani_timer / ANI_FPS ) % 5;
+	FrameworkPtr fw = Framework::getInstance( );
+	DrawRectExtendGraph( 0, 0, fw->getWindowWidth( ), fw->getWindowHeight( ), 0, 0, BG_IMG_WIDTH, BG_IMG_HEIGHT, _background_img, TRUE );
+	DrawRectExtendGraph( 10, fw->getWindowHeight( ) - SEEWEED_HEIGHT, SEEWEED_WIDTH + 10, fw->getWindowHeight( ), ani * SEEWEED_WIDTH, 0, SEEWEED_WIDTH, SEEWEED_HEIGHT, _seeweed_img, TRUE );
+	DrawRectExtendGraph( 50, fw->getWindowHeight( ) - SEEWEED_HEIGHT, SEEWEED_WIDTH + 50, fw->getWindowHeight( ), ani * SEEWEED_WIDTH, SEEWEED_HEIGHT, SEEWEED_WIDTH, SEEWEED_HEIGHT, _seeweed_img, TRUE );
+	DrawRectExtendGraph( 90, fw->getWindowHeight( ) - SEEWEED_HEIGHT, SEEWEED_WIDTH + 90, fw->getWindowHeight( ), ani * SEEWEED_WIDTH, SEEWEED_HEIGHT * 2, SEEWEED_WIDTH, SEEWEED_HEIGHT, _seeweed_img, TRUE );
 }

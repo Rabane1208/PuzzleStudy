@@ -28,7 +28,7 @@ int Map::getChipSize( ) {
 int Map::posToIdx( int x, int y ) {
 	int idx_x = x / _chip_size;
 	int idx_y = y / _chip_size;
-	int idx = idx_x + ( idx_y - 2 ) * MAP_X_NUM;
+	int idx = idx_x + ( idx_y - 2 ) * MAP_X_NUM; //後マジックnumber消す。
 	if ( idx < 0 || idx >= MAP_MAX ) {
 		idx = -1;
 	}
