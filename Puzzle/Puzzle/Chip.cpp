@@ -15,7 +15,7 @@ Chip::Chip( ) {
 	_change_num = 0;
 
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-		chip[ i ].type = ( TYPE )( GetRand( 5 ) + 1 );
+		chip[ i ].type = ( TYPE )( GetRand( 4 ) + 1 );
 		chip[ i ].status = STATUS::STATUS_NONE;
 	}
 }

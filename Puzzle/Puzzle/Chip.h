@@ -21,7 +21,6 @@ enum TYPE {
 		TYPE_C,
 		TYPE_D,
 		TYPE_E,
-		TYPE_F,
 		TYPE_MAX,
 };
 

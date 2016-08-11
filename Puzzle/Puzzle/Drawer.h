@@ -27,5 +27,6 @@ private:
 	int getChipResource( TYPE type );
 private:
 	int _num_img;
+	int _chip_img;
 };
 

@@ -12,6 +12,7 @@ DrawerPtr Drawer::getTask( ) {
 
 Drawer::Drawer( ) {
 	_num_img = LoadGraph( "Resources/Number.png" );
+	_chip_img = LoadGraph( "Resources/Chip.png" );
 	_chip = Chip::getTask( );
 	_map = Map::getTask( );
 }
@@ -37,31 +38,28 @@ void Drawer::drawMap( ) {
 
 void Drawer::drawChip( int idx, int size ) {
 	TYPE type = _chip->getChip( idx ).type;
-	int x = ( idx % Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) / 2 + 1;
-	int y = ( idx / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 5 / 2;
+	int x = ( idx % Map::MAP_X_NUM ) * _map->getChipSize( );
+	int y = ( idx / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 3 / 2;
 	int r = size;
-	DrawCircle( x, y, r, getChipResource( type ), TRUE );
+	DrawRectGraph( x, y, getChipResource( type ), 0, 60, 60, _chip_img, TRUE, FALSE );
 }
 
 int Drawer::getChipResource( TYPE type ) {//ŒãASTL::map‚Å•Ï‚¦‚éB
 	switch ( type ) {
 	case TYPE::TYPE_A:
-		return 0xff0000;
+		return 1 * _map->getChipSize( );
 		break;
 	case TYPE::TYPE_B:
-		return 0x00ff00;
+		return 2 * _map->getChipSize( );
 		break;
 	case TYPE::TYPE_C:
-		return 0x0000ff;
+		return 3 * _map->getChipSize( );
 		break;
 	case TYPE::TYPE_D:
-		return 0xffff00;
+		return 4 * _map->getChipSize( );
 		break;
 	case TYPE::TYPE_E:
-		return 0x00ffff;
-		break;
-	case TYPE::TYPE_F:
-		return 0xff00ff;
+		return 5 * _map->getChipSize( );
 		break;
 	default:
 		return 0xffffff;
