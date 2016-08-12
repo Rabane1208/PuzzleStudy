@@ -131,4 +131,7 @@ void Drawer::drawResult( ) {
 	if ( _result->isFail( ) ) {
 		DrawString( 0, 0, "FAIL", 0xff0000 );
 	}
+	if ( _result->isClear( TYPE::TYPE_NONE ) ) {
+		DrawString( 0, 0, "CLEAR", 0xff0000 );
+	}
 }

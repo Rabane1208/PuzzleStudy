@@ -1,6 +1,8 @@
 #include "Result.h"
 #include "Framework.h"
 #include "UI.h"
+#include "Chip.h"
+#include "Map.h"
 
 ResultPtr Result::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
@@ -9,6 +11,7 @@ ResultPtr Result::getTask( ) {
 
 Result::Result( ) {
 	_ui = UI::getTask( );
+	_chip = Chip::getTask( );
 }
 
 Result::~Result( ) {
@@ -25,6 +28,22 @@ bool Result::isFail( ) {
 	return false;
 }
 
-bool Result::isClear( ) {
-	return false;
+bool Result::isClear( TYPE goal_type ) {
+	/*if ( _ui->canChangeNum( ) < 0 ) {
+		return false;
+	}*/
+	if ( goal_type == TYPE::TYPE_NONE ) {
+		for ( int i = 0; i < Map::MAP_MAX; i++ ) {
+			if ( _chip->getChip( i ).type != _chip->getChip( 0 ).type ) {
+				return false;
+			}
+		}
+	} else {
+		for ( int i = 0; i < Map::MAP_MAX; i++ ) {
+			if ( _chip->getChip( i ).type != goal_type ) {
+				return false;
+			}
+		}
+	}
+	return true;
 }
