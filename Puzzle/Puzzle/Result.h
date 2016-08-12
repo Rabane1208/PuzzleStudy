@@ -4,6 +4,7 @@
 #include <string>
 
 PTR( Result );
+PTR( UI );
 
 class Result : public Task {
 public:
@@ -12,5 +13,12 @@ public:
 public:
 	Result( );
 	virtual ~Result( );
+public:
+	bool isFail( );
+	bool isClear( );
+private:
+	void update( );
+private:
+	UIPtr _ui;
 };
 

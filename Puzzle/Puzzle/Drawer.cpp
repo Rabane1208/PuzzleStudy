@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "Chip.h"
 #include "UI.h"
+#include "Result.h"
 
 const int BG_IMG_WIDTH = 484;
 const int BG_IMG_HEIGHT = 785;
@@ -24,8 +25,10 @@ Drawer::Drawer( ) {
 	_chip_img = LoadGraph( "Resources/Chip.png" );
 	_background_img = LoadGraph( "Resources/Background.png" );
 	_seeweed_img = LoadGraph( "Resources/seeweed.png" );
+
 	_chip = Chip::getTask( );
 	_map = Map::getTask( );
+	_result = Result::getTask( );
 
 	_ani_timer = 0;
 }
@@ -37,6 +40,7 @@ void Drawer::update( ) {
 	drawBackground( );
 	drawMap( );
 	drawUI( );
+	drawResult( );
 }
 
 void Drawer::drawMap( ) {
@@ -55,10 +59,14 @@ void Drawer::drawChip( int idx, int size ) {
 	int x = ( idx % Map::MAP_X_NUM ) * _map->getChipSize( );
 	int y = ( idx / Map::MAP_X_NUM ) * _map->getChipSize( ) + _map->getChipSize( ) * 2;//後マジックnumber消す。
 	int r = size;
-	DrawRectExtendGraph( x - size, y - size, x + _map->getChipSize( ) + size, y + _map->getChipSize( ) + size, getChipResource( type ), 0, CHIP_IMG_SIZE, CHIP_IMG_SIZE, _chip_img, TRUE );
+	DrawRectExtendGraph( x - size,                        y - size, 
+						 x + _map->getChipSize( ) + size, y + _map->getChipSize( ) + size, 
+						 getChipIMG( type ),              0, 
+						 CHIP_IMG_SIZE,                   CHIP_IMG_SIZE, 
+						 _chip_img,                       TRUE );
 }
 
-int Drawer::getChipResource( TYPE type ) {//後、STL::mapで変える。
+int Drawer::getChipIMG( TYPE type ) {//後、STL::mapで変える。
 	FrameworkPtr fw = Framework::getInstance( );
 	switch ( type ) {
 	case TYPE::TYPE_A:
@@ -95,8 +103,32 @@ void Drawer::drawBackground( ) {
 	_ani_timer++;
 	int ani = ( _ani_timer / ANI_FPS ) % 5;
 	FrameworkPtr fw = Framework::getInstance( );
-	DrawRectExtendGraph( 0, 0, fw->getWindowWidth( ), fw->getWindowHeight( ), 0, 0, BG_IMG_WIDTH, BG_IMG_HEIGHT, _background_img, TRUE );
-	DrawRectExtendGraph( 10, fw->getWindowHeight( ) - SEEWEED_HEIGHT, SEEWEED_WIDTH + 10, fw->getWindowHeight( ), ani * SEEWEED_WIDTH, 0, SEEWEED_WIDTH, SEEWEED_HEIGHT, _seeweed_img, TRUE );
-	DrawRectExtendGraph( 50, fw->getWindowHeight( ) - SEEWEED_HEIGHT, SEEWEED_WIDTH + 50, fw->getWindowHeight( ), ani * SEEWEED_WIDTH, SEEWEED_HEIGHT, SEEWEED_WIDTH, SEEWEED_HEIGHT, _seeweed_img, TRUE );
-	DrawRectExtendGraph( 90, fw->getWindowHeight( ) - SEEWEED_HEIGHT, SEEWEED_WIDTH + 90, fw->getWindowHeight( ), ani * SEEWEED_WIDTH, SEEWEED_HEIGHT * 2, SEEWEED_WIDTH, SEEWEED_HEIGHT, _seeweed_img, TRUE );
+	DrawRectExtendGraph( 0,                     0, 
+						 fw->getWindowWidth( ), fw->getWindowHeight( ), 
+						 0,						0, 
+						 BG_IMG_WIDTH,			BG_IMG_HEIGHT, 
+						 _background_img,		TRUE );
+
+	//plz magic number delete
+	DrawRectExtendGraph( 10,                  fw->getWindowHeight( ) - SEEWEED_HEIGHT, 
+						 SEEWEED_WIDTH + 10,  fw->getWindowHeight( ), 
+						 ani * SEEWEED_WIDTH, 0, 
+						 SEEWEED_WIDTH,       SEEWEED_HEIGHT, 
+						 _seeweed_img,        TRUE );
+	DrawRectExtendGraph( 50,                  fw->getWindowHeight( ) - SEEWEED_HEIGHT, 
+						 SEEWEED_WIDTH + 50,  fw->getWindowHeight( ), 
+						 ani * SEEWEED_WIDTH, SEEWEED_HEIGHT,
+						 SEEWEED_WIDTH,       SEEWEED_HEIGHT, 
+						 _seeweed_img,        TRUE );
+	DrawRectExtendGraph( 90,                  fw->getWindowHeight( ) - SEEWEED_HEIGHT, 
+						 SEEWEED_WIDTH + 90,  fw->getWindowHeight( ), 
+						 ani * SEEWEED_WIDTH, SEEWEED_HEIGHT * 2, 
+						 SEEWEED_WIDTH,       SEEWEED_HEIGHT, 
+						 _seeweed_img,        TRUE );
+}
+
+void Drawer::drawResult( ) {
+	if ( _result->isFail( ) ) {
+		DrawString( 0, 0, "FAIL", 0xff0000 );
+	}
 }

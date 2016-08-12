@@ -4,6 +4,7 @@
 #include "Mouse.h"
 #include "Chip.h"
 #include "Map.h"
+#include "Result.h"
 
 void main( ) {
 	FrameworkPtr fw = Framework::getInstance( );
@@ -14,12 +15,15 @@ void main( ) {
 
 	TaskPtr map = MapPtr( new Map );
 	fw->addTask( Map::getTag( ), map );
-
+	
 	TaskPtr chip = ChipPtr( new Chip );
 	fw->addTask( Chip::getTag( ), chip );
 	
-	UIPtr ui = UIPtr( new UI );
+	TaskPtr ui = UIPtr( new UI );
 	fw->addTask( UI::getTag( ), ui );
+
+	TaskPtr result = ResultPtr( new Result );
+	fw->addTask( Result::getTag( ), result );
 
 	TaskPtr drawer = DrawerPtr( new Drawer );
 	fw->addTask( Drawer::getTag( ), drawer );

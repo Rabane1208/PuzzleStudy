@@ -7,6 +7,7 @@
 PTR( Drawer );
 PTR( Map );
 PTR( Chip );
+PTR( Result );
 
 class Drawer : public Task {
 public:
@@ -15,9 +16,6 @@ public:
 public:
 	Drawer( );
 	virtual ~Drawer( );
-public:
-	ChipPtr _chip;
-	MapPtr _map;
 private:
 	void update( );
 	void drawMap( );
@@ -25,7 +23,12 @@ private:
 	void drawUI( );
 	void drawBackground( );
 	void drawNum( int x, int y, int num );
-	int getChipResource( TYPE type );
+	void drawResult( );
+	int getChipIMG( TYPE type );
+private:
+	ChipPtr _chip;
+	MapPtr _map;
+	ResultPtr _result;
 private:
 	int _num_img;
 	int _chip_img;
