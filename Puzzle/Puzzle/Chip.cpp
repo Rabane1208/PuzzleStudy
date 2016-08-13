@@ -3,6 +3,7 @@
 #include "DxLib.h"
 #include "Map.h"
 #include "Mouse.h"
+#include "Result.h"
 
 ChipPtr Chip::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
@@ -25,6 +26,12 @@ Chip::~Chip( ) {
 
 void Chip::update( ) {
 	if ( _mouse->getStatus( ) != 1 ) {
+		return;
+	}
+
+	//clear, fail‚ÌŽž‚Í‘€ì‚Å‚«‚È‚¢B
+	ResultPtr result = Result::getTask( ); 
+	if ( result->isFail( ) || result->isClear( TYPE::TYPE_NONE ) ) {
 		return;
 	}
 

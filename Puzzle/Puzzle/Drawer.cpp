@@ -92,6 +92,7 @@ int Drawer::getChipIMG( TYPE type ) {//ŒãASTL::map‚Å•Ï‚¦‚éB
 
 void Drawer::drawUI( ) {
 	UIPtr ui = UI::getTask( );
+	//Žc‚Á‚½‘€ì‰ñ”B
 	drawNum( 18, 25, ui->canChangeNum( ) );
 }
 
@@ -103,12 +104,14 @@ void Drawer::drawBackground( ) {
 	_ani_timer++;
 	int ani = ( _ani_timer / ANI_FPS ) % 5;
 	FrameworkPtr fw = Framework::getInstance( );
+	//”wŒiB
 	DrawRectExtendGraph( 0,                     0, 
 						 fw->getWindowWidth( ), fw->getWindowHeight( ), 
 						 0,						0, 
 						 BG_IMG_WIDTH,			BG_IMG_HEIGHT, 
 						 _background_img,		TRUE );
 
+	//ŠC‘
 	//plz magic number delete
 	DrawRectExtendGraph( 10,                  fw->getWindowHeight( ) - SEEWEED_HEIGHT, 
 						 SEEWEED_WIDTH + 10,  fw->getWindowHeight( ), 
