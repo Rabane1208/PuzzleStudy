@@ -7,7 +7,7 @@
 PTR( Drawer );
 PTR( Map );
 PTR( Chip );
-PTR( Result );
+PTR( Scene );
 
 class Drawer : public Task {
 public:
@@ -28,7 +28,7 @@ private:
 private:
 	ChipPtr _chip;
 	MapPtr _map;
-	ResultPtr _result;
+	ScenePtr _scene;
 private:
 	int _num_img;
 	int _chip_img;

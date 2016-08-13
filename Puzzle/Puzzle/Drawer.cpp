@@ -4,7 +4,7 @@
 #include "Map.h"
 #include "Chip.h"
 #include "UI.h"
-#include "Result.h"
+#include "Scene.h"
 
 const int BG_IMG_WIDTH = 484;
 const int BG_IMG_HEIGHT = 785;
@@ -28,7 +28,7 @@ Drawer::Drawer( ) {
 
 	_chip = Chip::getTask( );
 	_map = Map::getTask( );
-	_result = Result::getTask( );
+	_scene = Scene::getTask( );
 
 	_ani_timer = 0;
 }
@@ -37,9 +37,11 @@ Drawer::~Drawer( ) {
 }
 
 void Drawer::update( ) {
-	drawBackground( );
-	drawMap( );
-	drawUI( );
+	if ( _scene->getScene( ) == SCENE::SCENE_PLAY ) {
+		drawBackground( );
+		drawMap( );
+		drawUI( );
+	}
 	drawResult( );
 }
 
@@ -131,10 +133,10 @@ void Drawer::drawBackground( ) {
 }
 
 void Drawer::drawResult( ) {
-	if ( _result->isFail( ) ) {
+	if ( _scene->getScene( ) == SCENE::SCENE_FAIL ) {
 		DrawString( 0, 0, "FAIL", 0xff0000 );
 	}
-	if ( _result->isClear( TYPE::TYPE_NONE ) ) {
+	if ( _scene->getScene( ) == SCENE::SCENE_CLEAR ) {
 		DrawString( 0, 0, "CLEAR", 0xff0000 );
 	}
 }

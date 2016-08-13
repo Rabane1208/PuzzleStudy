@@ -5,6 +5,7 @@
 #include "Chip.h"
 #include "Map.h"
 #include "Result.h"
+#include "Scene.h"
 
 void main( ) {
 	FrameworkPtr fw = Framework::getInstance( );
@@ -24,6 +25,9 @@ void main( ) {
 
 	TaskPtr result = ResultPtr( new Result );
 	fw->addTask( Result::getTag( ), result );
+
+	TaskPtr scene = ScenePtr( new Scene );
+	fw->addTask( Scene::getTag( ), scene );
 
 	TaskPtr drawer = DrawerPtr( new Drawer );
 	fw->addTask( Drawer::getTag( ), drawer );

@@ -91,6 +91,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Result.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Task.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="winmain.cpp" />
@@ -102,6 +103,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Result.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="smart_ptr.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="UI.h" />

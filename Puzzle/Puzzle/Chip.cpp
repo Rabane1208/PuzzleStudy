@@ -3,7 +3,7 @@
 #include "DxLib.h"
 #include "Map.h"
 #include "Mouse.h"
-#include "Result.h"
+#include "Scene.h"
 
 ChipPtr Chip::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
@@ -29,9 +29,8 @@ void Chip::update( ) {
 		return;
 	}
 
-	//clear, fail‚ÌŽž‚Í‘€ì‚Å‚«‚È‚¢B
-	ResultPtr result = Result::getTask( ); 
-	if ( result->isFail( ) || result->isClear( TYPE::TYPE_NONE ) ) {
+	ScenePtr scene = Scene::getTask( ); 
+	if ( scene->getScene( ) != SCENE::SCENE_PLAY ) {
 		return;
 	}
 

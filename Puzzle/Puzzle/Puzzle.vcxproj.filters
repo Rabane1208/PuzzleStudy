@@ -11,6 +11,7 @@
     <ClCompile Include="Chip.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Result.cpp" />
+    <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawer.h" />
@@ -22,5 +23,6 @@
     <ClInclude Include="Chip.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Result.h" />
+    <ClInclude Include="Scene.h" />
   </ItemGroup>
 </Project>
