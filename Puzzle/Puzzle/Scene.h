@@ -5,6 +5,7 @@
 
 PTR( Scene );
 PTR( Result );
+PTR( Mouse );
 
 enum SCENE {
 	SCENE_TITLE,
@@ -27,7 +28,14 @@ public:
 	SCENE getScene( );
 private:
 	void update( );
+	void titleToPlay( );
+	void playToFail( );
+	void playToClear( );
+	void failToPlay( );
+	void clearToPlay( );
 private:
 	ResultPtr _result;
+	MousePtr _mouse;
+	SCENE _scene;
 };
 

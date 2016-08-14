@@ -23,7 +23,9 @@ private:
 	void drawUI( );
 	void drawBackground( );
 	void drawNum( int x, int y, int num );
-	void drawResult( );
+	void drawClear( );
+	void drawFail( );
+	void drawTitle( );
 	int getChipIMG( TYPE type );
 private:
 	ChipPtr _chip;

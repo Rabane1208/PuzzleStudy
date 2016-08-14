@@ -5,6 +5,8 @@
 #include "Mouse.h"
 #include "Scene.h"
 
+const int CHANGE_MAX = 9;
+
 ChipPtr Chip::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
 	return std::dynamic_pointer_cast< Chip >( fw->getTask( Chip::getTag( ) ) );
@@ -13,12 +15,8 @@ ChipPtr Chip::getTask( ) {
 Chip::Chip( ) {
 	_mouse = Mouse::getTask( );
 	_map = Map::getTask( );
-	_change_num = 0;
-
-	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-		chip[ i ].type = ( TYPE )( GetRand( 4 ) + 1 );
-		chip[ i ].status = STATUS::STATUS_NONE;
-	}
+	
+	setInit( );
 }
 
 Chip::~Chip( ) {
@@ -28,7 +26,6 @@ void Chip::update( ) {
 	if ( _mouse->getStatus( ) != 1 ) {
 		return;
 	}
-
 	ScenePtr scene = Scene::getTask( ); 
 	if ( scene->getScene( ) != SCENE::SCENE_PLAY ) {
 		return;
@@ -106,6 +103,14 @@ void Chip::groupLock( int idx ) {
 	}
 }
 
+void Chip::setInit( ) {
+	_change_num = 0;
+
+	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
+		chip[ i ].type = ( TYPE )( GetRand( 4 ) + 1 );
+		chip[ i ].status = STATUS::STATUS_NONE;
+	}
+}
 
 void Chip::setType( int idx, TYPE type ) {
 	chip[ idx ].type = type;
@@ -120,5 +125,5 @@ CHIP Chip::getChip( int idx ) {
 }
 
 int Chip::getChangeNum( ) {
-	return _change_num;
+	return CHANGE_MAX - _change_num;
 }

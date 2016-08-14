@@ -37,12 +37,22 @@ Drawer::~Drawer( ) {
 }
 
 void Drawer::update( ) {
+	_ani_timer++;
+
+	if ( _scene->getScene( ) == SCENE::SCENE_TITLE ) {
+		drawTitle( );
+	}
 	if ( _scene->getScene( ) == SCENE::SCENE_PLAY ) {
 		drawBackground( );
 		drawMap( );
 		drawUI( );
 	}
-	drawResult( );
+	if ( _scene->getScene( ) == SCENE::SCENE_FAIL ) {
+		drawFail( );
+	}
+	if ( _scene->getScene( ) == SCENE::SCENE_CLEAR ) {
+		drawClear( );
+	}
 }
 
 void Drawer::drawMap( ) {
@@ -103,7 +113,6 @@ void Drawer::drawNum( int x, int y, int num ) { //ŒãA10ˆÈã‚Å‚à‘Î‰ž‚·‚é‚æ‚¤‚ÉB
 }
 
 void Drawer::drawBackground( ) {
-	_ani_timer++;
 	int ani = ( _ani_timer / ANI_FPS ) % 5;
 	FrameworkPtr fw = Framework::getInstance( );
 	//”wŒiB
@@ -132,11 +141,14 @@ void Drawer::drawBackground( ) {
 						 _seeweed_img,        TRUE );
 }
 
-void Drawer::drawResult( ) {
-	if ( _scene->getScene( ) == SCENE::SCENE_FAIL ) {
-		DrawString( 0, 0, "FAIL", 0xff0000 );
-	}
-	if ( _scene->getScene( ) == SCENE::SCENE_CLEAR ) {
-		DrawString( 0, 0, "CLEAR", 0xff0000 );
-	}
+void Drawer::drawClear( ) {
+	DrawString( 0, 0, "CLEAR\nCLICK TO CONTINUE", 0xff0000 );
+}
+
+void Drawer::drawFail( ) {
+	DrawString( 0, 0, "FAIL\nCLICK TO CONTINUE", 0xff0000 );
+}
+
+void Drawer::drawTitle( ) {
+	DrawString( 0, 0, "TITLE\nCLICK TO START", 0xff0000 );
 }

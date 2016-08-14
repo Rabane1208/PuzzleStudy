@@ -3,6 +3,7 @@
 #include "UI.h"
 #include "Chip.h"
 #include "Map.h"
+#include "Mouse.h"
 
 ResultPtr Result::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
@@ -22,6 +23,10 @@ void Result::update( ) {
 }
 
 bool Result::isFail( ) {
+	MousePtr mouse = Mouse::getTask( );
+	if ( mouse->getStatus( ) >= 2 ) {
+		return false;
+	}
 	if ( _ui->canChangeNum( ) <= 0 ) {
 		return true;
 	}
@@ -29,9 +34,13 @@ bool Result::isFail( ) {
 }
 
 bool Result::isClear( TYPE goal_type ) {
-	/*if ( _ui->canChangeNum( ) < 0 ) {
+	MousePtr mouse = Mouse::getTask( );
+	if ( mouse->getStatus( ) >= 2 ) {
 		return false;
-	}*/
+	}
+	if ( _ui->canChangeNum( ) < 0 ) {
+		return false;
+	}
 	if ( goal_type == TYPE::TYPE_NONE ) {
 		for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 			if ( _chip->getChip( i ).type != _chip->getChip( 0 ).type ) {

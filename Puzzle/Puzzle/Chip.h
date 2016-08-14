@@ -41,6 +41,7 @@ public:
 	void setStatus( int idx, STATUS status );
 	CHIP getChip( int idx );
 	int getChangeNum( );
+	void setInit( );
 private:
 	bool isLockInCross( int idx );
 	void update( );
