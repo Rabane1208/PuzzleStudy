@@ -1,6 +1,5 @@
 #include "Map.h"
 #include "Mouse.h"
-#include "UI.h"
 #include "DxLib.h"
 #include "Framework.h"
 

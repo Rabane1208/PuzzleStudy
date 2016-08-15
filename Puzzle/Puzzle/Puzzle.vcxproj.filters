@@ -2,12 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Drawer.cpp" />
-    <ClCompile Include="Framework.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Mouse.cpp" />
-    <ClCompile Include="Task.cpp" />
-    <ClCompile Include="winmain.cpp" />
     <ClCompile Include="Chip.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Result.cpp" />
@@ -15,11 +10,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawer.h" />
-    <ClInclude Include="Framework.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="Mouse.h" />
-    <ClInclude Include="smart_ptr.h" />
-    <ClInclude Include="Task.h" />
     <ClInclude Include="Chip.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Result.h" />
