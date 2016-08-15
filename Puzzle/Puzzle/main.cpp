@@ -2,9 +2,7 @@
 #include "UI.h"
 #include "Drawer.h"
 #include "Mouse.h"
-#include "Chip.h"
-#include "Map.h"
-#include "Result.h"
+#include "ChipSetting.h"
 #include "Scene.h"
 
 void main( ) {
@@ -12,18 +10,9 @@ void main( ) {
 
     TaskPtr mouse = MousePtr( new Mouse );
     fw->addTask( Mouse::getTag( ), mouse );
-
-    TaskPtr map = MapPtr( new Map );
-    fw->addTask( Map::getTag( ), map );
     
-    TaskPtr chip = ChipPtr( new Chip );
-    fw->addTask( Chip::getTag( ), chip );
-    
-    TaskPtr ui = UIPtr( new UI );
-    fw->addTask( UI::getTag( ), ui );
-
-    TaskPtr result = ResultPtr( new Result );
-    fw->addTask( Result::getTag( ), result );
+    TaskPtr chipSetting = ChipSettingPtr( new ChipSetting );
+    fw->addTask( ChipSetting::getTag( ), chipSetting );
 
     TaskPtr scene = ScenePtr( new Scene );
     fw->addTask( Scene::getTag( ), scene );

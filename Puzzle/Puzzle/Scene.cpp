@@ -2,7 +2,7 @@
 #include "Framework.h"
 #include "Result.h"
 #include "Mouse.h"
-#include "Chip.h"
+#include "ChipSetting.h"
 
 ScenePtr Scene::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
@@ -10,8 +10,10 @@ ScenePtr Scene::getTask( ) {
 }
 
 Scene::Scene( ) {
-	_result = Result::getTask( );
+	_result = ResultPtr( new Result );
 	_mouse = Mouse::getTask( );
+	_chip_setting = ChipSetting::getTask( );
+	
 	_scene = SCENE::SCENE_TITLE;
 }
 
@@ -55,9 +57,9 @@ void Scene::failToPlay( ) {
 	if ( _scene != SCENE::SCENE_FAIL ) {
 		return;
 	}
-	ChipPtr chip = Chip::getTask( );
+	
 	if ( _mouse->getStatus( ) >= 2 ) {
-		chip->setInit( );
+		_chip_setting->setInit( );
 		_scene = SCENE::SCENE_PLAY;
 	}
 }
@@ -66,9 +68,9 @@ void Scene::clearToPlay( ) {
 	if ( _scene != SCENE::SCENE_CLEAR ) {
 		return;
 	}
-	ChipPtr chip = Chip::getTask( );
+	ChipSettingPtr chip_setting = ChipSetting::getTask( );
 	if ( _mouse->getStatus( ) >= 2 ) {
-		chip->setInit( );
+		_chip_setting->setInit( );
 		_scene = SCENE::SCENE_PLAY;
 	}
 }

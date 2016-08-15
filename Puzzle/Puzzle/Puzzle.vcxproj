@@ -84,7 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Chip.cpp" />
+    <ClCompile Include="ChipSetting.cpp" />
     <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Result.cpp" />
@@ -92,7 +92,7 @@
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Chip.h" />
+    <ClInclude Include="ChipSetting.h" />
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Scene.h" />

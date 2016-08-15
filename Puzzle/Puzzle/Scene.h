@@ -6,6 +6,7 @@
 PTR( Scene );
 PTR( Result );
 PTR( Mouse );
+PTR( ChipSetting );
 
 enum SCENE {
 	SCENE_TITLE,
@@ -37,5 +38,6 @@ private:
 	ResultPtr _result;
 	MousePtr _mouse;
 	SCENE _scene;
+	ChipSettingPtr _chip_setting;
 };
 

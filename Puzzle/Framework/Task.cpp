@@ -3,6 +3,5 @@
 Task::Task( ) {
 }
 
-
 Task::~Task( ) {
 }
