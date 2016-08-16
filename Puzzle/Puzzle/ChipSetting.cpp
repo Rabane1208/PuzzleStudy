@@ -25,31 +25,38 @@ ChipSetting::~ChipSetting( ) {
 }
 
 void ChipSetting::update( ) {
-	if ( _mouse->getStatus( ) != 1 ) {
-		return;
-	}
-	ScenePtr scene = Scene::getTask( ); 
+	ScenePtr scene = Scene::getTask( );
 	if ( scene->getScene( ) != SCENE::SCENE_PLAY ) {
 		return;
 	}
-
-	//違うChipをClickしたら、初期化
-	int before_idx = mouse_idx;
-	mouse_idx = _map->posToIdx( _mouse->getPosX( ), _mouse->getPosY( ) );
-	if ( mouse_idx == -1 ) { //Chipじゃなかったらreturn
+	if ( _mouse->getStatus( ) != 1 ) {
 		return;
 	}
+
+	int before_idx = mouse_idx;
+	mouse_idx = _map->posToIdx( _mouse->getPosX( ), _mouse->getPosY( ) );
+
+	//Chipじゃなかったらreturn
+	if ( mouse_idx == -1 ) { 
+		return;
+	}
+	//TYPE_NONEだったらreturn
+	if ( _chip->getChip( mouse_idx ).type == TYPE::TYPE_NONE ) {
+		return;
+	}
+	//違うChipをClickしたら、初期化
 	if ( before_idx != mouse_idx && _chip->getChip( mouse_idx ).status != STATUS::STATUS_LOCKED ) {
 		for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 			_chip->setStatus( i, STATUS::STATUS_NONE );
 		}
 	}
-
 	//LockされてないChipをClickしたら、Lockする
 	if ( _chip->getChip( mouse_idx ).status != STATUS::STATUS_LOCKED ) {
 		_chip->setStatus( mouse_idx, STATUS::STATUS_LOCKED );
 		groupLock( mouse_idx );
-	} else { //LockされたChipをClickしたら、色を変えてLockを解除
+	} 
+	//LockされたChipをClickしたら、色を変えてLockを解除
+	else { 
 		for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 			if ( _chip->getChip( i ).status != STATUS::STATUS_LOCKED ) {
 				continue;

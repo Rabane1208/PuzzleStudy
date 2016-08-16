@@ -21,9 +21,9 @@ DrawerPtr Drawer::getTask( ) {
 }
 
 Drawer::Drawer( ) {
-	_num_img = LoadGraph( "Resources/Number.png" );
-	_background_img = LoadGraph( "Resources/Background.png" );
-	_seeweed_img = LoadGraph( "Resources/seeweed.png" );
+	_num_img = LoadGraph( "../Resources/Number.png" );
+	_background_img = LoadGraph( "../Resources/Background.png" );
+	_seeweed_img = LoadGraph( "../Resources/seeweed.png" );
 
 	_chip_setting = ChipSetting::getTask( );
 	_scene = Scene::getTask( );

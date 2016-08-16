@@ -9,7 +9,7 @@ Chip::Chip( ) {
 	FrameworkPtr fw = Framework::getInstance( );
 	_chip_size = fw->getWindowWidth( ) / Map::MAP_X_NUM;
 	_map = MapPtr( new Map );
-	_chip_img = LoadGraph( "Resources/Chip.png" );
+	_chip_img = LoadGraph( "../Resources/Chip.png" );
 }
 
 Chip::~Chip( ) {
@@ -20,11 +20,11 @@ void Chip::drawChip( int idx, int size ) {
 	int x = ( idx % Map::MAP_X_NUM ) * _chip_size;
 	int y = ( idx / Map::MAP_X_NUM ) * _chip_size + _chip_size * 2;//後マジックnumber消す。
 	int r = size;
-	DrawRectExtendGraph( x - size,                        y - size, 
-						 x + _chip_size + size, y + _chip_size + size, 
-						 getChipIMG( type ),              0, 
-						 CHIP_IMG_SIZE,                   CHIP_IMG_SIZE, 
-						 _chip_img,                       TRUE );
+	DrawRectExtendGraph( x - size,              y - size, 
+						 x + _chip_size + size,	y + _chip_size + size, 
+						 getChipIMG( type ),    0, 
+						 CHIP_IMG_SIZE,         CHIP_IMG_SIZE, 
+						 _chip_img,             TRUE );
 }
 
 int Chip::getChipIMG( TYPE type ) {//後、STL::mapで変える。
