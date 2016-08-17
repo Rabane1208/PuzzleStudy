@@ -9,7 +9,11 @@ public:
 	File( );
 	virtual ~File( );
 public:
-	void saveFile( std::string filename );
-	void loadFile( std::string filename );
+	void deleteStage( );
+	void addStage( );
+	void save( );
+	void load( );
+private:
+	std::string filename;
 };
 

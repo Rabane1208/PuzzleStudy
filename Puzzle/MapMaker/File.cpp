@@ -1,6 +1,7 @@
 #include "File.h"
 
 File::File( ) {
+	filename = "stage.dat";
 }
 
 File::~File( ) {
@@ -14,8 +15,13 @@ void File::deleteStage( ) {
 
 }
 
-void File::saveFile( std::string filename ) {
+void File::save( ) {
+	FILE *fp;
+	errno_t err = fopen_s( &fp, filename.c_str( ), "wb" );
+	if ( err != 0 ) {
+		return;
+	}
 }
 
-void File::loadFile( std::string filename ) {
+void File::load( ) {
 }
