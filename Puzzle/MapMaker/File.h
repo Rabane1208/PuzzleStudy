@@ -1,6 +1,5 @@
 #pragma once
 #include "smart_ptr.h"
-#include <string>
 
 PTR( File );
 
@@ -9,11 +8,7 @@ public:
 	File( );
 	virtual ~File( );
 public:
-	void deleteStage( );
-	void addStage( );
-	void save( );
-	void load( );
-private:
-	std::string filename;
+	void save( int stage_num );
+	void load( int stage_num );
 };
 

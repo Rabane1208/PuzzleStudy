@@ -3,6 +3,7 @@
 #include "DxLib.h"
 #include "Mouse.h"
 #include "Keyboard.h"
+#include "File.h"
 
 const int INPUT_X = 105;
 const int INPUT_Y = 100;
@@ -17,6 +18,7 @@ MapMakerPtr MapMaker::getTask( ) {
 MapMaker::MapMaker( ) {
 	_chip = ChipPtr( new Chip );
 	_map = MapPtr( new Map );
+	_file = FilePtr( new File );
 	_mouse = Mouse::getTask( );
 	_keyboard = Keyboard::getTask( );
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
@@ -51,11 +53,15 @@ void MapMaker::update( ) {
 	if ( _keyboard->isPushKey( "F1" ) ) {
 		_state = STATE::STATE_INPUT_STAGE;
 	}
-	if ( _keyboard->isPushKey( "F3" ) ) {
-		_state = STATE::STATE_LOAD_STAGE;
-	}
 	if ( _keyboard->isPushKey( "F4" ) ) {
+		_state = STATE::STATE_LOAD_STAGE;
+		_file->load( _stage_num );
+		loadStage( );
+	}
+	if ( _keyboard->isPushKey( "F5" ) ) {
 		_state = STATE::STATE_SAVE_STAGE;
+		saveStage( );
+		_file->save( _stage_num );
 	}
 }
 
@@ -103,26 +109,39 @@ void MapMaker::inputStageNum( ) {
 }
 
 void MapMaker::saveStage( ) {
-	data[ _stage_num ].num = _stage_num;
+	STAGE stage;
+	stage.num = _stage_num;
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-		data[ _stage_num ].chip_type[ i ] = _chip->getChip( i ).type;
+		stage.chip_type[ i ] = _chip->getChip( i ).type;
 	}
+	data.push_back( stage );
 	_state = STATE::STATE_MAPMAKER;
 }
 
 void MapMaker::loadStage( ) {
-	if ( data[ _stage_num ].num == NULL ) {
+	if ( data.size( ) < _stage_num ) {
 		_state = STATE::STATE_MAPMAKER;
 		return;
 	}
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-		_chip->setType( i, data[ _stage_num ].chip_type[ i ] );
+		_chip->setType( i, data[ _stage_num - 1 ].chip_type[ i ] );
 	}
 	_state = STATE::STATE_MAPMAKER;
 }
 
 int MapMaker::getStageNum( ) {
 	return _stage_num;
+}
+
+std::array< TYPE, Map::MAP_MAX > MapMaker::getChipType( int stage_num ) {
+	return data[ stage_num - 1 ].chip_type;
+}
+
+void MapMaker::setChipType( int stage_num, std::array< TYPE, Map::MAP_MAX > chip_type ) {
+	STAGE stage;
+	stage.num = stage_num;
+	stage.chip_type = chip_type;
+	data.push_back( stage );
 }
 
 ChipPtr MapMaker::getChipPtr( ) {

@@ -2,7 +2,7 @@
 #include "smart_ptr.h"
 #include <string>
 #include "Task.h"
-#include <map>
+#include <vector>
 #include "Chip.h"
 
 PTR( MapMaker );
@@ -10,6 +10,7 @@ PTR( Chip );
 PTR( Mouse );
 PTR( Keyboard );
 PTR( Map );
+PTR( File );
 
 enum STATE {
 	STATE_INPUT_STAGE,
@@ -33,6 +34,8 @@ public:
 public:
 	ChipPtr getChipPtr( );
 	int getStageNum( );
+	std::array< TYPE, Map::MAP_MAX > getChipType( int stage_num );
+	void MapMaker::setChipType( int stage_num, std::array< TYPE, Map::MAP_MAX > chip_type );
 private:
 	void update( );
 	void changeChip( );
@@ -43,10 +46,11 @@ private:
 	MapPtr _map;
 	ChipPtr _chip;
 	MousePtr _mouse;
+	FilePtr _file;
 	KeyboardPtr _keyboard;
 	int mouse_idx;
-	int _stage_num;
+	unsigned int _stage_num;
 	STATE _state;
-	std::map< int, STAGE > data;
+	std::vector< STAGE > data;
 };
 

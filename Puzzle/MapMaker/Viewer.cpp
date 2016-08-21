@@ -26,10 +26,9 @@ void Viewer::drawUI( ) {
 	FrameworkPtr fw = Framework::getInstance( );
 	MapMakerPtr map_maker = MapMaker::getTask( );
 	DrawFormatString( 5, 0, 0xffffff, "F1 : Select Stage" );
-	DrawFormatString( 5, 20, 0xffffff, "F3 : Load Stage" );
-	DrawFormatString( 5, 40, 0xffffff, "F4 : Save Stage" );
-	DrawFormatString( 5, 60, 0xffffff, "F5 : Save File" );
-	DrawFormatString( 5, fw->getWindowHeight( ) - 20, 0xffffff, "STAGE : %d", map_maker->getStageNum( ) );
+	DrawFormatString( 5, 20, 0xffffff, "F4 : Load File" );
+	DrawFormatString( 5, 40, 0xffffff, "F5 : Save File" );
+	DrawFormatString( fw->getWindowWidth( ) - 120, 0, 0xff0000, "STAGE : %d", map_maker->getStageNum( ) );
 }
 
 void Viewer::drawMap( ) {
