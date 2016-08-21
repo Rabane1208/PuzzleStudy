@@ -29,7 +29,8 @@ public:
 	SCENE getScene( );
 private:
 	void update( );
-	void titleToPlay( );
+	void titleToStage( );
+	void StageToPlay( int stage_num );
 	void playToFail( );
 	void playToClear( );
 	void failToPlay( );

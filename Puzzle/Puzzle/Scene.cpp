@@ -21,7 +21,7 @@ Scene::~Scene( ) {
 }
 
 void Scene::update( ) {
-	titleToPlay( );
+	titleToStage( );
 	playToFail( );
 	playToClear( );
 	failToPlay( );
@@ -32,12 +32,18 @@ SCENE Scene::getScene( ) {
 	return _scene;
 }
 
-void Scene::titleToPlay( ) {
+void Scene::titleToStage( ) {
 	if ( _scene != SCENE::SCENE_TITLE ) {
 		return;
 	}
 	if ( _mouse->getStatus( ) >= 2 ) {
-		_scene = SCENE::SCENE_PLAY;
+		_scene = SCENE::SCENE_STAGE;
+	}
+}
+
+void Scene::StageToPlay( int stage_num ) {
+	if ( _scene != SCENE::SCENE_STAGE ) {
+		return;
 	}
 }
 
