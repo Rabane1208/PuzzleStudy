@@ -84,18 +84,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ChipSetting.cpp" />
     <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Play.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Select.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ChipSetting.h" />
     <ClInclude Include="Drawer.h" />
+    <ClInclude Include="Play.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Select.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>

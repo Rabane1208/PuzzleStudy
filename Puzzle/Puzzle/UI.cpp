@@ -1,8 +1,8 @@
 #include "UI.h"
-#include "ChipSetting.h"
+#include "Play.h"
 
 UI::UI( ) {
-	_chip_setting = ChipSetting::getTask( );
+	_play = Play::getTask( );
 }
 
 UI::~UI( ) {
@@ -10,6 +10,6 @@ UI::~UI( ) {
 
 int UI::canChangeNum( ) {
 	int can_change_num = 0;
-	can_change_num = _chip_setting->getChangeNum( );
+	can_change_num = _play->getChangeNum( );
 	return can_change_num;
 }

@@ -6,11 +6,11 @@
 PTR( Scene );
 PTR( Result );
 PTR( Mouse );
-PTR( ChipSetting );
+PTR( Play );
 
 enum SCENE {
 	SCENE_TITLE,
-	SCENE_STAGE,
+	SCENE_SELECT,
 	SCENE_PLAY,
 	SCENE_FAIL,
 	SCENE_CLEAR,
@@ -29,7 +29,7 @@ public:
 	SCENE getScene( );
 private:
 	void update( );
-	void titleToStage( );
+	void titleToSelect( );
 	void StageToPlay( int stage_num );
 	void playToFail( );
 	void playToClear( );
@@ -39,6 +39,6 @@ private:
 	ResultPtr _result;
 	MousePtr _mouse;
 	SCENE _scene;
-	ChipSettingPtr _chip_setting;
+	PlayPtr _play;
 };
 

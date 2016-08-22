@@ -1,13 +1,14 @@
 #pragma once
 #include "Task.h"
 #include "smart_ptr.h"
-#include "ChipSetting.h"
+#include "Play.h"
 #include <string>
 
 PTR( Drawer );
 PTR( Map );
-PTR( ChipSetting );
+PTR( Play );
 PTR( Scene );
+PTR( Select );
 
 class Drawer : public Task {
 public:
@@ -25,14 +26,17 @@ private:
 	void drawClear( );
 	void drawFail( );
 	void drawTitle( );
+	void drawSelect( );
 private:
-	ChipSettingPtr _chip_setting;
+	PlayPtr _play;
 	MapPtr _map;
 	ScenePtr _scene;
+	SelectPtr _select;
 private:
 	int _num_img;
 	int _background_img;
 	int _seeweed_img;
 	int _ani_timer;
+	int _stage_max;
 };
 

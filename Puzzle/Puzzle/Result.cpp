@@ -1,7 +1,7 @@
 #include "Result.h"
 #include "UI.h"
 #include "Chip.h"
-#include "ChipSetting.h"
+#include "Play.h"
 #include "Map.h"
 #include "Mouse.h"
 
@@ -25,8 +25,8 @@ bool Result::isFail( ) {
 
 bool Result::isClear( TYPE goal_type ) {
 	MousePtr mouse = Mouse::getTask( );
-	ChipSettingPtr chip_setting = ChipSetting::getTask( );
-	ChipPtr chip = chip_setting->getChipPtr( );
+	PlayPtr play = Play::getTask( );
+	ChipPtr chip = play->getChipPtr( );
 	if ( mouse->getStatus( ) >= 2 ) {
 		return false;
 	}

@@ -6,7 +6,6 @@
 PTR( Map );
 PTR( Mouse );
 
-
 class Map {
 public:
 	static const int MAP_X_NUM = 7;

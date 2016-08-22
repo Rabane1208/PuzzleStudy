@@ -2,10 +2,11 @@
 #include "DxLib.h"
 #include "Framework.h"
 #include "Map.h"
-#include "ChipSetting.h"
+#include "Play.h"
 #include "UI.h"
 #include "Scene.h"
 #include "Chip.h"
+#include "Select.h"
 
 const int BG_IMG_WIDTH = 484;
 const int BG_IMG_HEIGHT = 785;
@@ -25,11 +26,13 @@ Drawer::Drawer( ) {
 	_background_img = LoadGraph( "../Resources/Background.png" );
 	_seeweed_img = LoadGraph( "../Resources/seeweed.png" );
 
-	_chip_setting = ChipSetting::getTask( );
+	_play = Play::getTask( );
 	_scene = Scene::getTask( );
 	_map = MapPtr( new Map );
+	_select = SelectPtr( new Select );
 
 	_ani_timer = 0;
+	_stage_max = _select->getIconNum( );
 }
 
 Drawer::~Drawer( ) {
@@ -40,6 +43,9 @@ void Drawer::update( ) {
 
 	if ( _scene->getScene( ) == SCENE::SCENE_TITLE ) {
 		drawTitle( );
+	}
+	if ( _scene->getScene( ) == SCENE::SCENE_SELECT ) {
+		drawSelect( );
 	}
 	if ( _scene->getScene( ) == SCENE::SCENE_PLAY ) {
 		drawBackground( );
@@ -55,8 +61,8 @@ void Drawer::update( ) {
 }
 
 void Drawer::drawMap( ) {
-	ChipSettingPtr chip_setting = ChipSetting::getTask( );
-	ChipPtr chip = chip_setting->getChipPtr( );
+	PlayPtr play = Play::getTask( );
+	ChipPtr chip = play->getChipPtr( );
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 		chip->drawChip( i, -3 );
 	}
@@ -116,4 +122,13 @@ void Drawer::drawFail( ) {
 
 void Drawer::drawTitle( ) {
 	DrawString( 0, 0, "TITLE\nCLICK TO START", 0xff0000 );
+}
+
+void Drawer::drawSelect( ) {
+	for ( int i = 0; i < _stage_max; i++ ) {
+		int x = _select->getIconPosX( i );
+		int y = _select->getIconPosY( i );
+		int r = Select::ICON_SIZE / 2;
+		DrawCircle( x, y, r, 0xffffff, TRUE );
+	}
 }

@@ -2,7 +2,7 @@
 #include "Framework.h"
 #include "Result.h"
 #include "Mouse.h"
-#include "ChipSetting.h"
+#include "Play.h"
 
 ScenePtr Scene::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
@@ -12,7 +12,7 @@ ScenePtr Scene::getTask( ) {
 Scene::Scene( ) {
 	_result = ResultPtr( new Result );
 	_mouse = Mouse::getTask( );
-	_chip_setting = ChipSetting::getTask( );
+	_play = Play::getTask( );
 	
 	_scene = SCENE::SCENE_TITLE;
 }
@@ -21,7 +21,7 @@ Scene::~Scene( ) {
 }
 
 void Scene::update( ) {
-	titleToStage( );
+	titleToSelect( );
 	playToFail( );
 	playToClear( );
 	failToPlay( );
@@ -32,17 +32,17 @@ SCENE Scene::getScene( ) {
 	return _scene;
 }
 
-void Scene::titleToStage( ) {
+void Scene::titleToSelect( ) {
 	if ( _scene != SCENE::SCENE_TITLE ) {
 		return;
 	}
 	if ( _mouse->getStatus( ) >= 2 ) {
-		_scene = SCENE::SCENE_STAGE;
+		_scene = SCENE::SCENE_SELECT;
 	}
 }
 
 void Scene::StageToPlay( int stage_num ) {
-	if ( _scene != SCENE::SCENE_STAGE ) {
+	if ( _scene != SCENE::SCENE_SELECT ) {
 		return;
 	}
 }
@@ -65,7 +65,7 @@ void Scene::failToPlay( ) {
 	}
 	
 	if ( _mouse->getStatus( ) >= 2 ) {
-		_chip_setting->setInit( );
+		_play->setInit( );
 		_scene = SCENE::SCENE_PLAY;
 	}
 }
@@ -74,9 +74,9 @@ void Scene::clearToPlay( ) {
 	if ( _scene != SCENE::SCENE_CLEAR ) {
 		return;
 	}
-	ChipSettingPtr chip_setting = ChipSetting::getTask( );
+	PlayPtr play = Play::getTask( );
 	if ( _mouse->getStatus( ) >= 2 ) {
-		_chip_setting->setInit( );
+		_play->setInit( );
 		_scene = SCENE::SCENE_PLAY;
 	}
 }

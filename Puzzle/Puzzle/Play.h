@@ -4,18 +4,18 @@
 #include <string>
 #include "Chip.h"
 
-PTR( ChipSetting );
+PTR( Play );
 PTR( Mouse );
 PTR( Map );
 PTR( Chip );
 
-class ChipSetting : public Task {
+class Play : public Task {
 public:
 	static std::string getTag( ) { return "CHIPSETTING"; }
-	static ChipSettingPtr getTask( );
+	static PlayPtr getTask( );
 public:
-	ChipSetting();
-	virtual ~ChipSetting();
+	Play( );
+	virtual ~Play( );
 public:
 	int getChangeNum( );
 	void setInit( );

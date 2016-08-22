@@ -6,13 +6,15 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="ChipSetting.cpp" />
+    <ClCompile Include="Select.cpp" />
+    <ClCompile Include="Play.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="ChipSetting.h" />
+    <ClInclude Include="Select.h" />
+    <ClInclude Include="Play.h" />
   </ItemGroup>
 </Project>

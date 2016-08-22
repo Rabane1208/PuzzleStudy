@@ -2,7 +2,7 @@
 #include "UI.h"
 #include "Drawer.h"
 #include "Mouse.h"
-#include "ChipSetting.h"
+#include "Play.h"
 #include "Scene.h"
 
 void main( ) {
@@ -11,8 +11,8 @@ void main( ) {
     TaskPtr mouse = MousePtr( new Mouse );
     fw->addTask( Mouse::getTag( ), mouse );
     
-    TaskPtr chipSetting = ChipSettingPtr( new ChipSetting );
-    fw->addTask( ChipSetting::getTag( ), chipSetting );
+    TaskPtr play = PlayPtr( new Play );
+    fw->addTask( Play::getTag( ), play );
 
     TaskPtr scene = ScenePtr( new Scene );
     fw->addTask( Scene::getTag( ), scene );

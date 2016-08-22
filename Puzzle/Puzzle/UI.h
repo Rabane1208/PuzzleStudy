@@ -3,7 +3,7 @@
 #include <string>
 
 PTR( UI );
-PTR( ChipSetting );
+PTR( Play );
 
 class UI {
 public:
@@ -12,6 +12,6 @@ public:
 public:
 	int canChangeNum( );
 private:
-	ChipSettingPtr _chip_setting;
+	PlayPtr _play;
 };
 

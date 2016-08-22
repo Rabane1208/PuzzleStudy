@@ -1,4 +1,4 @@
-#include "ChipSetting.h"
+#include "Play.h"
 #include "Framework.h"
 #include "DxLib.h"
 #include "Map.h"
@@ -8,23 +8,23 @@
 
 const int CHANGE_MAX = 9;
 
-ChipSettingPtr ChipSetting::getTask( ) {
+PlayPtr Play::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
-	return std::dynamic_pointer_cast< ChipSetting >( fw->getTask( ChipSetting::getTag( ) ) );
+	return std::dynamic_pointer_cast< Play >( fw->getTask( Play::getTag( ) ) );
 }
 
-ChipSetting::ChipSetting( ) {
+Play::Play( ) {
 	_mouse = Mouse::getTask( );
 	_map = MapPtr( new Map );
 	_chip = ChipPtr( new Chip );
-	
+
 	setInit( );
 }
 
-ChipSetting::~ChipSetting( ) {
+Play::~Play( ) {
 }
 
-void ChipSetting::update( ) {
+void Play::update( ) {
 	ScenePtr scene = Scene::getTask( );
 	if ( scene->getScene( ) != SCENE::SCENE_PLAY ) {
 		return;
@@ -37,7 +37,7 @@ void ChipSetting::update( ) {
 	mouse_idx = _map->posToIdx( _mouse->getPosX( ), _mouse->getPosY( ) );
 
 	//Chipじゃなかったらreturn
-	if ( mouse_idx == -1 ) { 
+	if ( mouse_idx == -1 ) {
 		return;
 	}
 	//TYPE_NONEだったらreturn
@@ -54,14 +54,14 @@ void ChipSetting::update( ) {
 	if ( _chip->getChip( mouse_idx ).status != STATUS::STATUS_LOCKED ) {
 		_chip->setStatus( mouse_idx, STATUS::STATUS_LOCKED );
 		groupLock( mouse_idx );
-	} 
+	}
 	//LockされたChipをClickしたら、色を変えてLockを解除
-	else { 
+	else {
 		for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 			if ( _chip->getChip( i ).status != STATUS::STATUS_LOCKED ) {
 				continue;
 			}
-			_chip->setType( i, ( TYPE )( ( _chip->getChip( i ).type + 1 ) % TYPE::TYPE_MAX ) );
+			_chip->setType( i, ( TYPE ) ( ( _chip->getChip( i ).type + 1 ) % TYPE::TYPE_MAX ) );
 			_chip->setStatus( i, STATUS::STATUS_NONE );
 			if ( _chip->getChip( i ).type == TYPE::TYPE_NONE ) {
 				_chip->setType( i, TYPE::TYPE_OCTOPUS );
@@ -71,7 +71,7 @@ void ChipSetting::update( ) {
 	}
 }
 
-bool ChipSetting::isLockInCross( int idx ) {
+bool Play::isLockInCross( int idx ) {
 	//右を検査
 	if ( idx % Map::MAP_X_NUM != ( Map::MAP_X_NUM - 1 ) ) {
 		if ( _chip->getChip( idx + 1 ).status == STATUS::STATUS_LOCKED ) {
@@ -99,7 +99,7 @@ bool ChipSetting::isLockInCross( int idx ) {
 	return false;
 }
 
-void ChipSetting::groupLock( int idx ) {
+void Play::groupLock( int idx ) {
 	for ( int j = 0; j < Map::MAP_X_NUM + Map::MAP_Y_NUM; j++ ) { //無駄にメモリ使っている。直す必要がある。
 		for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 			if ( _chip->getChip( i ).type != _chip->getChip( idx ).type ) {
@@ -112,7 +112,7 @@ void ChipSetting::groupLock( int idx ) {
 	}
 }
 
-void ChipSetting::setInit( ) {
+void Play::setInit( ) {
 	_change_num = 0;
 
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
@@ -123,10 +123,10 @@ void ChipSetting::setInit( ) {
 	_chip->setType( 0, TYPE::TYPE_BLOWFISH );
 }
 
-int ChipSetting::getChangeNum( ) {
+int Play::getChangeNum( ) {
 	return CHANGE_MAX - _change_num;
 }
 
-ChipPtr ChipSetting::getChipPtr( ) {
+ChipPtr Play::getChipPtr( ) {
 	return _chip;
 }
