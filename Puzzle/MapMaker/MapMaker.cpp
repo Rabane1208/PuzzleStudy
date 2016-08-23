@@ -25,7 +25,7 @@ MapMaker::MapMaker( ) {
 		_chip->setType( i, TYPE::TYPE_OCTOPUS );
 		_chip->setStatus( i, STATUS::STATUS_NONE );
 	}
-	_stage_num = 1;
+	_stage_num = 0;
 	_state = STATE::STATE_MAPMAKER;
 }
 
@@ -38,10 +38,10 @@ void MapMaker::update( ) {
 		inputStageNum( );
 		break;
 	case STATE_SAVE_STAGE:
-		saveStage( );
+		saveStage( _stage_num );
 		break;
 	case STATE_LOAD_STAGE:
-		loadStage( );
+		loadStage( _stage_num );
 		break;
 	case STATE_MAPMAKER:
 		changeChip( );
@@ -56,11 +56,11 @@ void MapMaker::update( ) {
 	if ( _keyboard->isPushKey( "F4" ) ) {
 		_state = STATE::STATE_LOAD_STAGE;
 		_file->load( _stage_num );
-		loadStage( );
+		loadStage( _stage_num );
 	}
 	if ( _keyboard->isPushKey( "F5" ) ) {
 		_state = STATE::STATE_SAVE_STAGE;
-		saveStage( );
+		saveStage( _stage_num );
 		_file->save( _stage_num );
 	}
 }
@@ -108,23 +108,23 @@ void MapMaker::inputStageNum( ) {
 	_state = STATE::STATE_MAPMAKER;
 }
 
-void MapMaker::saveStage( ) {
+void MapMaker::saveStage( int stage_num ) {
 	STAGE stage;
 	stage.num = _stage_num;
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
 		stage.chip_type[ i ] = _chip->getChip( i ).type;
 	}
-	data.push_back( stage );
+	data[ stage_num ] = stage;
 	_state = STATE::STATE_MAPMAKER;
 }
 
-void MapMaker::loadStage( ) {
-	if ( data.size( ) < _stage_num ) {
+void MapMaker::loadStage( int stage_num ) {
+	if ( data[ stage_num ].chip_type.empty( ) ) {
 		_state = STATE::STATE_MAPMAKER;
 		return;
 	}
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-		_chip->setType( i, data[ _stage_num - 1 ].chip_type[ i ] );
+		_chip->setType( i, data[ stage_num ].chip_type[ i ] );
 	}
 	_state = STATE::STATE_MAPMAKER;
 }
@@ -134,14 +134,13 @@ int MapMaker::getStageNum( ) {
 }
 
 std::array< TYPE, Map::MAP_MAX > MapMaker::getChipType( int stage_num ) {
-	return data[ stage_num - 1 ].chip_type;
+	return data[ stage_num ].chip_type;
 }
 
 void MapMaker::setChipType( int stage_num, std::array< TYPE, Map::MAP_MAX > chip_type ) {
 	STAGE stage;
 	stage.num = stage_num;
 	stage.chip_type = chip_type;
-	data.push_back( stage );
 }
 
 ChipPtr MapMaker::getChipPtr( ) {

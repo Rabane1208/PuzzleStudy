@@ -7,7 +7,7 @@ PTR( Select );
 
 class Select {
 public:
-	static const int ICON_SIZE = 30;
+	static const int ICON_SIZE = 48;
 public:
 	Select( );
 	virtual ~Select( );

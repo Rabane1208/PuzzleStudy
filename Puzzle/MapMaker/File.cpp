@@ -40,7 +40,7 @@ void File::load( int stage_num ) {
 
 	std::string         filename;
 	std::ostringstream  ost;
-
+	
 	ost.str( "" );
 	ost << stage_num;
 

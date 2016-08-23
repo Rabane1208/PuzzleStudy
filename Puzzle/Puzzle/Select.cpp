@@ -1,7 +1,9 @@
 #include "Select.h"
 #include "sstream"
+#include "Framework.h"
 
 const int MAX_ICON_IN_LINE = 4;
+const int MAX_LINE = 5;
 
 Select::Select( ) {
 }
@@ -14,12 +16,16 @@ void Select::makeIcon( ) {
 }
 
 int Select::getIconPosX( int idx ) {
-	int x = ICON_SIZE * ( idx % MAX_ICON_IN_LINE ) + ICON_SIZE;
+	FrameworkPtr fw = Framework::getInstance( );
+	int dis = fw->getWindowWidth( ) / ( MAX_ICON_IN_LINE + 1 );
+	int x = dis * ( idx % MAX_ICON_IN_LINE ) + dis;
 	return x;
 }
 
 int Select::getIconPosY( int idx ) {
-	int y = ICON_SIZE * ( idx / MAX_ICON_IN_LINE ) + ICON_SIZE;
+	FrameworkPtr fw = Framework::getInstance( );
+	int dis = fw->getWindowHeight( ) / ( MAX_LINE + 1 );
+	int y = dis * ( idx / MAX_ICON_IN_LINE ) + dis;
 	return y;
 }
 
@@ -40,5 +46,6 @@ int Select::getIconNum( ) {
 		}
 		i++;
 	}
+
 	return i - 1;
 }

@@ -2,7 +2,7 @@
 #include "smart_ptr.h"
 #include <string>
 #include "Task.h"
-#include <vector>
+#include <Map>
 #include "Chip.h"
 
 PTR( MapMaker );
@@ -40,8 +40,8 @@ private:
 	void update( );
 	void changeChip( );
 	void inputStageNum( );
-	void saveStage( );
-	void loadStage( );
+	void saveStage( int stage_num );
+	void loadStage( int stage_num );
 private:
 	MapPtr _map;
 	ChipPtr _chip;
@@ -51,6 +51,6 @@ private:
 	int mouse_idx;
 	unsigned int _stage_num;
 	STATE _state;
-	std::vector< STAGE > data;
+	std::map< int ,STAGE > data;
 };
 

@@ -5,8 +5,7 @@
 #include "Mouse.h"
 #include "Scene.h"
 #include "Chip.h"
-
-const int CHANGE_MAX = 9;
+#include "sstream"
 
 PlayPtr Play::getTask( ) {
 	FrameworkPtr fw = Framework::getInstance( );
@@ -17,16 +16,16 @@ Play::Play( ) {
 	_mouse = Mouse::getTask( );
 	_map = MapPtr( new Map );
 	_chip = ChipPtr( new Chip );
+	_scene = Scene::getTask( );
 
-	setInit( );
+	setInit( _scene->getStage( ) );
 }
 
 Play::~Play( ) {
 }
 
 void Play::update( ) {
-	ScenePtr scene = Scene::getTask( );
-	if ( scene->getScene( ) != SCENE::SCENE_PLAY ) {
+	if ( _scene->getScene( ) != SCENE::SCENE_PLAY ) {
 		return;
 	}
 	if ( _mouse->getStatus( ) != 1 ) {
@@ -112,15 +111,31 @@ void Play::groupLock( int idx ) {
 	}
 }
 
-void Play::setInit( ) {
-	_change_num = 0;
+void Play::setInit( int stage ) {
+	FILE *fh;
+
+	std::string         filename;
+	std::ostringstream  ost;
+
+	filename.clear( );
+	ost.str( "" );
+	ost << stage;
+	filename += "../Data/Map/" + ost.str( ) + ".map";
+	errno_t err = fopen_s( &fh, filename.c_str( ), "rb" );
+	if ( err != 0 ) {
+		return;
+	}
+
+	std::array< TYPE, Map::MAP_MAX > data;
+	fread( &data, sizeof( data ), 1, fh );
 
 	for ( int i = 0; i < Map::MAP_MAX; i++ ) {
-		//chip[ i ].type = ( TYPE )( GetRand( 4 ) + 1 );
-		_chip->setType( i, TYPE::TYPE_OCTOPUS );
+		_chip->setType( i, data[ i ] );
 		_chip->setStatus( i, STATUS::STATUS_NONE );
 	}
-	_chip->setType( 0, TYPE::TYPE_BLOWFISH );
+	fclose( fh );
+
+	_change_num = 0;
 }
 
 int Play::getChangeNum( ) {

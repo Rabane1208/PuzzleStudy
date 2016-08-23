@@ -7,6 +7,7 @@ PTR( Scene );
 PTR( Result );
 PTR( Mouse );
 PTR( Play );
+PTR( Select );
 
 enum SCENE {
 	SCENE_TITLE,
@@ -27,10 +28,11 @@ public:
 	virtual ~Scene( );
 public:
 	SCENE getScene( );
+	int getStage( );
 private:
 	void update( );
 	void titleToSelect( );
-	void StageToPlay( int stage_num );
+	void StageToPlay( );
 	void playToFail( );
 	void playToClear( );
 	void failToPlay( );
@@ -40,5 +42,9 @@ private:
 	MousePtr _mouse;
 	SCENE _scene;
 	PlayPtr _play;
+	SelectPtr _select;
+private:
+	int _stage;
+	int _stage_max;
 };
 
