@@ -1,18 +1,61 @@
 #include "Select.h"
 #include "sstream"
 #include "Framework.h"
+#include "Mouse.h"
+#include "Scene.h"
 
 const int MAX_ICON_IN_LINE = 4;
 const int MAX_LINE = 5;
 
+SelectPtr Select::getTask( ) {
+	FrameworkPtr fw = Framework::getInstance( );
+	return std::dynamic_pointer_cast< Select >( fw->getTask( Select::getTag( ) ) );
+}
+
 Select::Select( ) {
+	_stage = 1;
 }
 
 Select::~Select( ) {
 }
 
+void Select::update( ) {
+	
+}
 void Select::makeIcon( ) {
 
+}
+
+int Select::getStage( ) {
+	return _stage;
+}
+
+bool Select::selectStage( ) {
+	MousePtr _mouse = Mouse::getTask( );
+	if ( _mouse->getStatus( ) < 2 ) {
+		return false;
+	}
+	for ( int i = 0; i < getIconNum( ); i++ ) {
+		bool x_min = _mouse->getPosX( ) < getIconPosX( i ) - Select::ICON_SIZE / 2;
+		bool x_max = _mouse->getPosX( ) > getIconPosX( i ) + Select::ICON_SIZE / 2;
+		bool y_min = _mouse->getPosY( ) < getIconPosY( i ) - Select::ICON_SIZE / 2;
+		bool y_max = _mouse->getPosY( ) > getIconPosY( i ) + Select::ICON_SIZE / 2;
+		if ( x_min ) {
+			continue;
+		}
+		if ( x_max ) {
+			continue;
+		}
+		if ( y_min ) {
+			continue;
+		}
+		if ( y_max ) {
+			continue;
+		}
+		_stage = i + 1;
+		return true;
+	}
+	return false;
 }
 
 int Select::getIconPosX( int idx ) {

@@ -5,6 +5,7 @@
 #include "Mouse.h"
 #include "Scene.h"
 #include "Chip.h"
+#include "Select.h"
 #include "sstream"
 
 PlayPtr Play::getTask( ) {
@@ -17,14 +18,21 @@ Play::Play( ) {
 	_map = MapPtr( new Map );
 	_chip = ChipPtr( new Chip );
 	_scene = Scene::getTask( );
+	_select = Select::getTask( );
 
-	setInit( _scene->getStage( ) );
+	setInit( _select->getStage( ) );
 }
 
 Play::~Play( ) {
 }
 
 void Play::update( ) {
+	if ( _scene->getScene( ) == SCENE::SCENE_SELECT ) {
+		if ( !_select->selectStage( ) ) {
+			return;
+		}
+		setInit( _select->getStage( ) );
+	}
 	if ( _scene->getScene( ) != SCENE::SCENE_PLAY ) {
 		return;
 	}

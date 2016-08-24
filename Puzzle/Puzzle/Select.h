@@ -1,11 +1,15 @@
 #pragma once
 #include "DxLib.h"
 #include "smart_ptr.h"
+#include "Task.h"
 #include <vector>
 
 PTR( Select );
 
-class Select {
+class Select : public Task {
+public:
+	static std::string getTag( ) { return "SELECT"; }
+	static SelectPtr getTask( );
 public:
 	static const int ICON_SIZE = 48;
 public:
@@ -15,10 +19,13 @@ public:
 	int getIconPosX( int idx );
 	int getIconPosY( int idx );
 	int getIconNum( );
+	int getStage( );
+	bool selectStage( );
 private:
 	void makeIcon( );
-	std::vector< DxLib::VECTOR > _icon;
+	void update( );
 private:
 	VECTOR _pos;
+	int _stage;
 };
 

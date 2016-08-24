@@ -17,28 +17,22 @@ Scene::Scene( ) {
 	_select = SelectPtr( new Select );
 
 	_scene = SCENE::SCENE_TITLE;
-	_stage = 1;
-	_stage_max = _select->getIconNum( );
 }
 
 Scene::~Scene( ) {
 }
 
 void Scene::update( ) {
+	StageToPlay( );
 	titleToSelect( );
 	playToFail( );
 	playToClear( );
-	StageToPlay( );
 	failToPlay( );
 	clearToPlay( );
 }
 
 SCENE Scene::getScene( ) {
 	return _scene;
-}
-
-int Scene::getStage( ) {
-	return _stage;
 }
 
 void Scene::titleToSelect( ) {
@@ -57,24 +51,7 @@ void Scene::StageToPlay( ) {
 	if ( _mouse->getStatus( ) < 2 ) {
 		return;
 	}
-	for ( int i = 0; i < _stage_max; i++ ) {
-		bool x_min = _mouse->getPosX( ) < _select->getIconPosX( i ) - Select::ICON_SIZE / 2;
-		bool x_max = _mouse->getPosX( ) > _select->getIconPosX( i ) + Select::ICON_SIZE / 2;
-		bool y_min = _mouse->getPosY( ) < _select->getIconPosY( i ) - Select::ICON_SIZE / 2;
-		bool y_max = _mouse->getPosY( ) > _select->getIconPosY( i ) + Select::ICON_SIZE / 2;
-		if ( x_min ) {
-			continue;
-		}
-		if ( x_max ) {
-			continue;
-		}
-		if ( y_min ) {
-			continue;
-		}
-		if ( y_max ) {
-			continue;
-		}
-		_stage = i + 1;
+	if ( _select->selectStage( ) ) {
 		_scene = SCENE::SCENE_PLAY;
 	}
 }

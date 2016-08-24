@@ -9,6 +9,7 @@ PTR( Mouse );
 PTR( Map );
 PTR( Chip );
 PTR( Scene );
+PTR( Select );
 
 class Play : public Task {
 public:
@@ -32,6 +33,7 @@ private:
 	MapPtr _map;
 	ChipPtr _chip;
 	ScenePtr _scene;
+	SelectPtr _select;
 	int mouse_idx;
 	int _change_num;
 };

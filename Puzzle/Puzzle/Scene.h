@@ -28,7 +28,6 @@ public:
 	virtual ~Scene( );
 public:
 	SCENE getScene( );
-	int getStage( );
 private:
 	void update( );
 	void titleToSelect( );
@@ -43,8 +42,5 @@ private:
 	SCENE _scene;
 	PlayPtr _play;
 	SelectPtr _select;
-private:
-	int _stage;
-	int _stage_max;
 };
 

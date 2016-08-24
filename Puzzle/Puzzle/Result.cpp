@@ -4,7 +4,7 @@
 #include "Play.h"
 #include "Map.h"
 #include "Mouse.h"
-#include "Scene.h"
+#include "Select.h"
 
 Result::Result( ) {
 	_ui = UIPtr( new UI );
@@ -15,13 +15,13 @@ Result::~Result( ) {
 
 bool Result::isFail( ) {
 	MousePtr mouse = Mouse::getTask( );
-	ScenePtr scene = Scene::getTask( );
+	SelectPtr select = Select::getTask( );
 	PlayPtr play = Play::getTask( );
 	if ( mouse->getStatus( ) >= 2 ) {
 		return false;
 	}
 	if ( _ui->canChangeNum( ) <= 0 ) {
-		play->setInit( scene->getStage( ) );
+		play->setInit( select->getStage( ) );
 		return true;
 	}
 	return false;
@@ -29,7 +29,7 @@ bool Result::isFail( ) {
 
 bool Result::isClear( TYPE goal_type ) {
 	MousePtr mouse = Mouse::getTask( );
-	ScenePtr scene = Scene::getTask( );
+	SelectPtr select = Select::getTask( );
 	PlayPtr play = Play::getTask( );
 	ChipPtr chip = play->getChipPtr( );
 	if ( mouse->getStatus( ) >= 2 ) {
@@ -51,7 +51,7 @@ bool Result::isClear( TYPE goal_type ) {
 			}
 		}
 	}
-	int t = scene->getStage( );
+	int t = select->getStage( );
 	play->setInit( t );
 	return true;
 }
