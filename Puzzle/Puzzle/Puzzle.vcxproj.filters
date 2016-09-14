@@ -8,6 +8,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Select.cpp" />
     <ClCompile Include="Play.cpp" />
+    <ClCompile Include="Option.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawer.h" />
@@ -16,5 +17,6 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Select.h" />
     <ClInclude Include="Play.h" />
+    <ClInclude Include="Option.h" />
   </ItemGroup>
 </Project>

@@ -85,3 +85,9 @@ void Scene::clearToPlay( ) {
 		_scene = SCENE::SCENE_PLAY;
 	}
 }
+
+void Scene::option( ) {
+	if ( _mouse->getStatus( ) >= 2 ) {
+		_scene = SCENE::SCENE_PLAY;
+	}
+}

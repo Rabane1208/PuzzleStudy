@@ -36,6 +36,7 @@ private:
 	void playToClear( );
 	void failToPlay( );
 	void clearToPlay( );
+	void option( );
 private:
 	ResultPtr _result;
 	MousePtr _mouse;
